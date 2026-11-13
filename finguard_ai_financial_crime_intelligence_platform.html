@@ -1,0 +1,2748 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinGuard AI — Financial Crime & AML Intelligence Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: '#0B1120',
+            slatecard: '#111827',
+            slateborder: '#1F2937',
+            cyber: '#06B6D4',
+            cyberdark: '#0891B2'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'ui-monospace', 'SFMono-Regular', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    body {
+      background-color: #0B1120;
+      color: #F3F4F6;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+    /* Custom sleek scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0B1120;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1F2937;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #374151;
+    }
+    .pulse-dot {
+      animation: pulseRing 2s infinite;
+    }
+    @keyframes pulseRing {
+      0% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.6); }
+      70% { box-shadow: 0 0 0 6px rgba(6, 182, 212, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
+    }
+    .graph-node {
+      cursor: pointer;
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+    .graph-node:hover {
+      filter: brightness(1.25);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-obsidian text-gray-100 selection:bg-cyan-500/30 selection:text-cyan-200">
+
+  <!-- TOP SYNTHETIC ENVIRONMENT BANNER & HEADER -->
+  <header class="sticky top-0 z-40 bg-[#080D1A]/95 backdrop-blur border-b border-gray-800">
+    <div class="bg-amber-500/10 border-b border-amber-500/25 px-4 py-1.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2 text-amber-300 font-medium">
+        <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+        <span>SYNTHETIC DEMONSTRATION ENVIRONMENT — Simulated INR Financial Data (UPI / IMPS / NEFT / WALLET)</span>
+      </div>
+      <div class="text-gray-400 hidden sm:block">
+        Explainable AI Decision Support • Indicators highlight suspicious patterns for analyst review, not proof of crime
+      </div>
+    </div>
+
+    <div class="px-4 lg:px-6 h-14 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg bg-gray-800/80 text-gray-300 hover:text-white" aria-label="Toggle Menu">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-base tracking-tight text-white">FinGuard <span class="text-cyan-400">AI</span></span>
+              <span class="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">v2.4 Intel</span>
+            </div>
+            <p class="text-[11px] text-gray-400 hidden sm:block">Financial Fraud & AML Graph Intelligence Platform</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-900 border border-gray-800 text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-dot"></span>
+          <span class="text-gray-400">Engine:</span>
+          <span class="font-mono text-emerald-400 font-medium">LR + Z-Score + Graph AML</span>
+        </div>
+        <button onclick="navigate('lab')" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold transition flex items-center gap-1.5 shadow-md shadow-cyan-500/20">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span>Simulate Tx</span>
+        </button>
+        <button onclick="openResetModal()" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs font-medium border border-gray-700 transition flex items-center gap-1.5" title="Reset Synthetic Dataset">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          <span class="hidden sm:inline">Reset Data</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WORKSPACE SHELL -->
+  <div class="flex-1 flex relative">
+    <!-- SIDEBAR NAVIGATION -->
+    <aside id="sidebar" class="fixed lg:static inset-y-0 left-0 z-30 w-64 bg-[#0D1424] border-r border-gray-800 transform -translate-x-full lg:translate-x-0 transition-transform duration-200 flex flex-col justify-between pt-16 lg:pt-0">
+      <div class="p-3 space-y-1 overflow-y-auto">
+        <div class="px-3 py-2 text-[10px] font-semibold uppercase tracking-wider text-gray-500">Intelligence Modules</div>
+        <nav id="navLinks" class="space-y-1">
+          <!-- Populated by JS -->
+        </nav>
+      </div>
+
+      <div class="p-4 border-t border-gray-800/80 space-y-3 bg-[#090E1A]">
+        <div class="text-xs font-medium text-gray-300 flex items-center justify-between">
+          <span>Detection Pipeline</span>
+          <span class="text-[10px] font-mono text-cyan-400">ACTIVE</span>
+        </div>
+        <div class="space-y-1.5 text-[11px] text-gray-400">
+          <div class="flex justify-between">
+            <span>ML Classifier:</span>
+            <span class="font-mono text-gray-200">Logistic Reg.</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Behavioral Baseline:</span>
+            <span class="font-mono text-gray-200">Z-Score Engine</span>
+          </div>
+          <div class="flex justify-between">
+            <span>AML Graph Rules:</span>
+            <span class="font-mono text-gray-200">4 Typologies</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Storage:</span>
+            <span class="font-mono text-emerald-400">localStorage</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- BACKDROP FOR MOBILE SIDEBAR -->
+    <div id="sidebarBackdrop" class="fixed inset-0 bg-black/60 z-20 hidden lg:hidden" onclick="toggleSidebar(false)"></div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main id="mainContent" class="flex-1 p-4 lg:p-6 overflow-x-hidden max-w-full">
+      <!-- Dynamic Module Content Rendered Here -->
+    </main>
+  </div>
+
+  <!-- SLIDE-OVER DRAWER FOR TRANSACTION / ACCOUNT XAI DETAILS -->
+  <div id="detailDrawerOverlay" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden" onclick="closeDetailDrawer()"></div>
+  <aside id="detailDrawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-2xl bg-[#0F172A] border-l border-gray-800 shadow-2xl transform translate-x-full transition-transform duration-200 flex flex-col">
+    <div class="px-6 py-4 border-b border-gray-800 flex items-center justify-between bg-[#0B1120]">
+      <div id="drawerHeader">
+        <h3 class="text-base font-bold text-white">Inspection Details</h3>
+      </div>
+      <button onclick="closeDetailDrawer()" class="p-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="drawerBody" class="p-6 overflow-y-auto flex-1 space-y-6">
+      <!-- Dynamic Drawer Content -->
+    </div>
+  </aside>
+
+  <!-- CUSTOM CONFIRMATION MODAL (No window.confirm/alert used!) -->
+  <div id="resetModal" class="fixed inset-0 bg-black/75 z-50 hidden items-center justify-center p-4">
+    <div class="bg-slatecard border border-gray-700 rounded-xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div>
+          <h3 class="text-base font-bold text-white">Reset Synthetic Dataset?</h3>
+          <p class="text-xs text-gray-400">This restores the default seeded accounts, transactions, and alerts.</p>
+        </div>
+      </div>
+      <p class="text-sm text-gray-300 leading-relaxed">
+        Any custom transactions simulated in the Detection Lab and analyst investigation notes stored in <code class="text-cyan-400 font-mono text-xs">localStorage</code> will be reset to the initial synthetic competition baseline.
+      </p>
+      <div class="flex justify-end gap-3 pt-2">
+        <button onclick="closeResetModal()" class="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs font-medium">Cancel</button>
+        <button onclick="executeResetData()" class="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-semibold">Reset Environment</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-4 right-4 z-50 space-y-2 pointer-events-none"></div>
+
+  <script>
+    /*************************************************************************
+     * FINGUARD AI — CLIENT-SIDE INTELLIGENCE ENGINE & SYNTHETIC DATASET
+     * Architecture:
+     * 1. Lightweight Logistic Regression Classifier (trained via gradient descent on synthetic features)
+     * 2. Statistical Behavioral Anomaly Detector (account-level mean/std z-scores, velocity, nocturnal hours, new counterparty)
+     * 3. Graph & Typology AML Engine (Circular Rings, Structuring/Smurfing < ₹50k, Money Mule Hubs, Rapid Pass-Through)
+     * 4. Unified Risk Scoring & Explainable AI (XAI) Evidence Generator
+     *************************************************************************/
+
+    const STORAGE_KEY = 'finguard_ai_state_v2';
+
+    // Global Application State
+    let appState = {
+      activeModule: 'overview',
+      accounts: [],
+      transactions: [],
+      alerts: [],
+      amlPatterns: {
+        circularRings: [],
+        structuringGroups: [],
+        muleHubs: [],
+        rapidMovements: []
+      },
+      modelWeights: null,
+      txFilters: {
+        search: '',
+        channel: 'ALL',
+        riskLevel: 'ALL',
+        flagType: 'ALL',
+        sortBy: 'timestamp_desc'
+      },
+      amlGraphFilter: 'ALL',
+      selectedGraphNode: null,
+      accountSearch: '',
+      accountSort: 'risk_desc',
+      alertFilterSeverity: 'ALL',
+      alertFilterStatus: 'ALL',
+      selectedAlertId: null,
+      lastLabResult: null
+    };
+
+    // Formatting Helpers
+    function formatINR(amount) {
+      return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        maximumFractionDigits: 0
+      }).format(amount);
+    }
+
+    function formatTime(isoStr) {
+      const d = new Date(isoStr);
+      return d.toLocaleString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+    }
+
+    function getRiskBadge(score) {
+      if (score >= 80) return { label: 'CRITICAL', cls: 'bg-rose-500/15 text-rose-400 border-rose-500/30', color: '#F43F5E' };
+      if (score >= 60) return { label: 'HIGH', cls: 'bg-amber-500/15 text-amber-400 border-amber-500/30', color: '#F59E0B' };
+      if (score >= 35) return { label: 'MEDIUM', cls: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30', color: '#06B6D4' };
+      return { label: 'LOW', cls: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30', color: '#10B981' };
+    }
+
+    function showToast(title, message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const colors = {
+        info: 'border-cyan-500/40 bg-slatecard text-cyan-300',
+        success: 'border-emerald-500/40 bg-slatecard text-emerald-300',
+        warning: 'border-amber-500/40 bg-slatecard text-amber-300',
+        danger: 'border-rose-500/40 bg-slatecard text-rose-300'
+      };
+      const el = document.createElement('div');
+      el.className = `pointer-events-auto max-w-sm w-80 p-3.5 rounded-xl border shadow-2xl transition-all duration-300 ${colors[type] || colors.info}`;
+      el.innerHTML = `
+        <div class="font-semibold text-xs text-white">${title}</div>
+        <div class="text-[11px] text-gray-300 mt-0.5">${message}</div>
+      `;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(8px)';
+        setTimeout(() => el.remove(), 300);
+      }, 3800);
+    }
+
+    /*************************************************************************
+     * 1. CLIENT-SIDE LOGISTIC REGRESSION MODEL (Trained on Startup)
+     *************************************************************************/
+    class FraudLogisticRegression {
+      constructor() {
+        // Features: [bias, logAmountNorm, nocturnalRisk, channelRisk, velocityNorm, isNewCounterparty, baselineRatioNorm]
+        this.weights = [0, 0, 0, 0, 0, 0, 0];
+        this.featureNames = [
+          'Intercept (Bias)',
+          'Log Transaction Amount',
+          'Nocturnal Hour Risk (00:00–05:00)',
+          'Channel Velocity Exposure',
+          'Short-Window Tx Velocity',
+          'First-Time Counterparty',
+          'Amount / Account Baseline Ratio'
+        ];
+        this.trainOnSyntheticData();
+      }
+
+      sigmoid(z) {
+        return 1 / (1 + Math.exp(-Math.max(-20, Math.min(20, z))));
+      }
+
+      trainOnSyntheticData() {
+        // Deterministic synthetic labeled dataset (240 samples) representing normal vs suspicious patterns
+        const samples = [];
+        let seed = 42;
+        const rand = () => {
+          seed = (seed * 1664525 + 1013904223) % 4294967296;
+          return seed / 4294967296;
+        };
+
+        // Generate 150 legitimate samples (label = 0)
+        for (let i = 0; i < 150; i++) {
+          const logAmt = 0.15 + rand() * 0.42; // moderate amounts
+          const nocturnal = rand() < 0.08 ? 1 : 0;
+          const chanRisk = rand() < 0.5 ? 0.3 : 0.5;
+          const vel = rand() * 0.25;
+          const newCp = rand() < 0.2 ? 1 : 0;
+          const ratio = 0.1 + rand() * 0.3;
+          samples.push({ x: [1, logAmt, nocturnal, chanRisk, vel, newCp, ratio], y: 0 });
+        }
+
+        // Generate 90 suspicious/fraudulent samples (label = 1)
+        for (let i = 0; i < 90; i++) {
+          const pattern = i % 3;
+          if (pattern === 0) {
+            // High-value nocturnal account takeover style
+            samples.push({
+              x: [1, 0.72 + rand() * 0.28, 1, 0.7 + rand() * 0.3, 0.3 + rand() * 0.4, 1, 0.75 + rand() * 0.25],
+              y: 1
+            });
+          } else if (pattern === 1) {
+            // Rapid velocity burst
+            samples.push({
+              x: [1, 0.45 + rand() * 0.35, rand() < 0.4 ? 1 : 0, 0.85, 0.75 + rand() * 0.25, 1, 0.5 + rand() * 0.4],
+              y: 1
+            });
+          } else {
+            // Structuring / Mule pass-through
+            samples.push({
+              x: [1, 0.62 + rand() * 0.2, rand() < 0.3 ? 1 : 0, 0.75, 0.6 + rand() * 0.35, rand() < 0.7 ? 1 : 0, 0.6 + rand() * 0.35],
+              y: 1
+            });
+          }
+        }
+
+        // Batch Gradient Descent (350 epochs)
+        const lr = 0.45;
+        for (let epoch = 0; epoch < 350; epoch++) {
+          const grads = [0, 0, 0, 0, 0, 0, 0];
+          for (const s of samples) {
+            const z = s.x.reduce((sum, val, idx) => sum + val * this.weights[idx], 0);
+            const pred = this.sigmoid(z);
+            const err = pred - s.y;
+            for (let j = 0; j < this.weights.length; j++) {
+              grads[j] += err * s.x[j];
+            }
+          }
+          for (let j = 0; j < this.weights.length; j++) {
+            this.weights[j] -= (lr * grads[j]) / samples.length;
+          }
+        }
+      }
+
+      extractFeatures(tx, senderStats) {
+        const logAmtNorm = Math.min(1, Math.max(0, Math.log10(Math.max(10, tx.amount)) / 6)); // 10^6 = 1,000,000 -> 1.0
+        const hour = new Date(tx.timestamp).getHours();
+        const nocturnalRisk = (hour >= 0 && hour <= 4) ? 1.0 : (hour === 23 || hour === 5) ? 0.5 : 0.0;
+        const channelMap = { IMPS: 0.85, WALLET: 0.75, UPI: 0.55, NEFT: 0.40 };
+        const channelRisk = channelMap[tx.channel] || 0.5;
+        const velocityNorm = Math.min(1, (senderStats.recent1hCount || 0) / 5);
+        const isNewCounterparty = senderStats.isNewCounterparty ? 1.0 : 0.0;
+        const ratio = senderStats.avgAmount > 0 ? tx.amount / senderStats.avgAmount : 1;
+        const baselineRatioNorm = Math.min(1, Math.max(0, (ratio - 1) / 6));
+
+        return [1, logAmtNorm, nocturnalRisk, channelRisk, velocityNorm, isNewCounterparty, baselineRatioNorm];
+      }
+
+      predict(tx, senderStats) {
+        const x = this.extractFeatures(tx, senderStats);
+        const contributions = x.map((val, idx) => ({
+          feature: this.featureNames[idx],
+          value: val,
+          weight: this.weights[idx],
+          contribution: val * this.weights[idx]
+        }));
+        const logit = contributions.reduce((acc, c) => acc + c.contribution, 0);
+        const probability = this.sigmoid(logit);
+        return {
+          probability,
+          score: Math.round(probability * 100),
+          contributions: contributions.slice(1) // exclude intercept for display
+        };
+      }
+    }
+
+    const fraudModel = new FraudLogisticRegression();
+
+    /*************************************************************************
+     * 2. SYNTHETIC DATA GENERATOR (Indian Accounts + Embedded Crime Patterns)
+     *************************************************************************/
+    function generateInitialSyntheticDataset() {
+      const firstNames = [
+        'Aarav', 'Vivaan', 'Aditya', 'Vihaan', 'Arjun', 'Sai', 'Reyansh', 'Ayaan', 'Krishna', 'Ishaan',
+        'Diya', 'Ananya', 'Aadhya', 'Pari', 'Myra', 'Anika', 'Navya', 'Kavya', 'Riya', 'Meera',
+        'Rohan', 'Vikram', 'Neha', 'Pooja', 'Siddharth', 'Karan', 'Priya', 'Sneha', 'Rahul', 'Amit',
+        'Deepak', 'Nitin', 'Swati', 'Manish', 'Rajesh', 'Sunita', 'Gaurav', 'Tarun', 'Nisha', 'Varun',
+        'Kunal', 'Shreya', 'Abhishek', 'Tanvi', 'Harsh'
+      ];
+      const lastNames = [
+        'Sharma', 'Verma', 'Patel', 'Reddy', 'Nair', 'Iyer', 'Gupta', 'Singh', 'Kumar', 'Deshmukh',
+        'Joshi', 'Kulkarni', 'Chatterjee', 'Bose', 'Menon', 'Rao', 'Mehta', 'Shah', 'Malhotra', 'Kapoor'
+      ];
+      const cities = ['Mumbai', 'Bengaluru', 'Delhi NCR', 'Hyderabad', 'Pune', 'Chennai', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Lucknow'];
+      const kycTiers = ['Full KYC (Tier-1)', 'Full KYC (Tier-1)', 'Video KYC (Tier-2)', 'Min KYC Wallet'];
+      const devices = ['Android-OnePlus12', 'iOS-iPhone15', 'Android-SamsungS24', 'Web-ChromeWin', 'Android-RedmiNote', 'iOS-iPhone13'];
+
+      const accounts = [];
+      for (let i = 1; i <= 45; i++) {
+        const id = `ACC-${1000 + i}`;
+        const name = `${firstNames[(i * 3) % firstNames.length]} ${lastNames[(i * 7) % lastNames.length]}`;
+        const city = cities[i % cities.length];
+        const kyc = i >= 38 ? 'Min KYC Wallet' : kycTiers[i % kycTiers.length];
+        const homeDevice = devices[i % devices.length];
+        const avgMonthlyBaseline = 4500 + ((i * 1733) % 28000);
+        accounts.push({
+          id,
+          holderName: name,
+          city,
+          kycTier: kyc,
+          primaryDevice: homeDevice,
+          baselineMean: avgMonthlyBaseline,
+          baselineStd: Math.round(avgMonthlyBaseline * 0.35),
+          openedDaysAgo: 45 + ((i * 19) % 900)
+        });
+      }
+
+      // Role tags for narrative clarity on specific synthetic nodes
+      accounts[37].holderName = 'Rakesh Verma (Shell Mule Hub)'; // ACC-1038
+      accounts[38].holderName = 'Nitin Tiwari (Structuring Node)'; // ACC-1039
+      accounts[39].holderName = 'Vikramaditya Rao (Ring Node A)'; // ACC-1040
+      accounts[40].holderName = 'Kunal Deshmukh (Ring Node B)'; // ACC-1041
+      accounts[41].holderName = 'Harshvardhan Shah (Ring Node C)'; // ACC-1042
+      accounts[42].holderName = 'Tarun Malhotra (Ring Node D)'; // ACC-1043
+      accounts[43].holderName = 'Deepak Kulkarni (Offshore Bridge)'; // ACC-1044
+
+      const transactions = [];
+      let txCounter = 5000;
+      const baseTime = new Date('2026-11-13T10:30:00+05:30').getTime();
+
+      const addTx = (sender, receiver, amount, channel, minsAgo, deviceOverride = null, cityOverride = null, note = '') => {
+        txCounter++;
+        const senderAcc = accounts.find(a => a.id === sender);
+        const ts = new Date(baseTime - minsAgo * 60 * 1000).toISOString();
+        transactions.push({
+          id: `TXN-${txCounter}`,
+          sender,
+          receiver,
+          amount: Math.round(amount),
+          channel,
+          timestamp: ts,
+          device: deviceOverride || senderAcc.primaryDevice,
+          location: cityOverride || senderAcc.city,
+          reference: note || 'Standard Transfer'
+        });
+      };
+
+      const channels = ['UPI', 'IMPS', 'NEFT', 'WALLET'];
+
+      // 1. Generate 92 realistic background normal transactions across the last 36 hours
+      for (let i = 0; i < 92; i++) {
+        const sIdx = (i * 7) % 35;
+        let rIdx = (i * 11 + 3) % 35;
+        if (sIdx === rIdx) rIdx = (rIdx + 1) % 35;
+        const sender = accounts[sIdx];
+        const receiver = accounts[rIdx];
+        const ch = channels[i % channels.length];
+        const amt = Math.max(250, Math.round(sender.baselineMean * (0.35 + ((i * 13) % 85) / 100)));
+        const minsAgo = 60 + i * 21;
+        addTx(sender.id, receiver.id, amt, ch, minsAgo, null, null, i % 4 === 0 ? 'Merchant / Utility Payment' : 'Peer Transfer');
+      }
+
+      // 2. Embed Scenario A: Unusual High-Value Nocturnal Anomaly (ACC-1004 -> ACC-1036 at 02:18 AM)
+      const nocturnalDate = new Date('2026-11-13T02:18:00+05:30').getTime();
+      const minsAgoNocturnal = Math.round((baseTime - nocturnalDate) / 60000);
+      addTx('ACC-1004', 'ACC-1036', 245000, 'IMPS', minsAgoNocturnal, 'Unknown-Linux-TorProxy', 'Foreign-IP / Roaming', 'Urgent Night Wire');
+
+      // 3. Embed Scenario B: Transaction Velocity Burst (ACC-1012 rapid 6 transfers in 14 minutes)
+      const burstTargets = ['ACC-1021', 'ACC-1022', 'ACC-1023', 'ACC-1024', 'ACC-1025', 'ACC-1026'];
+      burstTargets.forEach((target, idx) => {
+        addTx('ACC-1012', target, 18500 + idx * 1200, 'UPI', 95 - idx * 2, 'Android-Emulator-X86', 'Delhi NCR', `Rapid Split Payout #${idx + 1}`);
+      });
+
+      // 4. Embed Scenario C: Transaction Structuring / Smurfing (ACC-1039 -> ACC-1044 just below ₹50,000 threshold)
+      addTx('ACC-1039', 'ACC-1044', 49200, 'IMPS', 180, null, 'Mumbai', 'Invoice Part-A');
+      addTx('ACC-1039', 'ACC-1044', 48800, 'NEFT', 155, null, 'Mumbai', 'Invoice Part-B');
+      addTx('ACC-1039', 'ACC-1044', 49500, 'IMPS', 130, null, 'Mumbai', 'Invoice Part-C');
+      addTx('ACC-1039', 'ACC-1044', 47900, 'WALLET', 110, null, 'Mumbai', 'Invoice Part-D');
+
+      // 5. Embed Scenario D: Money Mule Behavior (ACC-1038 receives from 5 disparate sources, rapidly forwards 94% out)
+      const muleSources = ['ACC-1002', 'ACC-1007', 'ACC-1015', 'ACC-1019', 'ACC-1028'];
+      muleSources.forEach((src, idx) => {
+        addTx(src, 'ACC-1038', 36000 + idx * 1500, 'UPI', 70 - idx * 3, null, null, 'Collection Credit');
+      });
+      // Rapid pass-through outbound from ACC-1038 to ACC-1044 & ACC-1045 within 8 minutes
+      addTx('ACC-1038', 'ACC-1044', 95000, 'IMPS', 52, 'Android-Rooted-Device', 'Kolkata', 'Sweep Transfer 1');
+      addTx('ACC-1038', 'ACC-1045', 88000, 'IMPS', 48, 'Android-Rooted-Device', 'Kolkata', 'Sweep Transfer 2');
+
+      // 6. Embed Scenario E: 3-Node Circular Fund Transfer Ring (ACC-1040 -> ACC-1041 -> ACC-1042 -> ACC-1040)
+      addTx('ACC-1040', 'ACC-1041', 165000, 'NEFT', 240, null, 'Bengaluru', 'Consultancy Fee');
+      addTx('ACC-1041', 'ACC-1042', 161500, 'IMPS', 215, null, 'Hyderabad', 'Logistics Settlement');
+      addTx('ACC-1042', 'ACC-1040', 158000, 'IMPS', 190, null, 'Pune', 'Equipment Refund');
+
+      // 7. Embed Scenario F: 4-Node Layering Ring (ACC-1030 -> ACC-1031 -> ACC-1032 -> ACC-1033 -> ACC-1030)
+      addTx('ACC-1030', 'ACC-1031', 82000, 'UPI', 320, null, 'Chennai', 'Vendor Advance');
+      addTx('ACC-1031', 'ACC-1032', 80500, 'UPI', 300, null, 'Chennai', 'Sub-contract');
+      addTx('ACC-1032', 'ACC-1033', 79000, 'WALLET', 280, null, 'Bengaluru', 'Wallet Load');
+      addTx('ACC-1033', 'ACC-1030', 77500, 'IMPS', 260, null, 'Chennai', 'Reimbursement');
+
+      return { accounts, transactions };
+    }
+
+    /*************************************************************************
+     * 3. FULL ANALYTICAL ENGINE: ML + Z-SCORE ANOMALY + GRAPH AML + XAI
+     *************************************************************************/
+    function runDetectionEngine() {
+      const txs = [...appState.transactions].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+      const accMap = new Map(appState.accounts.map(a => [a.id, a]));
+
+      // Step A: Build historical account baselines & counterparty sets
+      const accountStats = {};
+      appState.accounts.forEach(acc => {
+        accountStats[acc.id] = {
+          sentTxs: [],
+          recvTxs: [],
+          counterparties: new Set(),
+          totalIn: 0,
+          totalOut: 0
+        };
+      });
+
+      txs.forEach(tx => {
+        if (accountStats[tx.sender]) {
+          accountStats[tx.sender].sentTxs.push(tx);
+          accountStats[tx.sender].totalOut += tx.amount;
+        }
+        if (accountStats[tx.receiver]) {
+          accountStats[tx.receiver].recvTxs.push(tx);
+          accountStats[tx.receiver].totalIn += tx.amount;
+        }
+      });
+
+      // Step B: Graph & Typology AML Detection across the full transaction graph
+      const amlFindingsByTx = {}; // txId -> array of { type, severity, detail, weight }
+      const addAmlFlag = (txId, type, detail, bonusScore) => {
+        if (!amlFindingsByTx[txId]) amlFindingsByTx[txId] = [];
+        if (!amlFindingsByTx[txId].some(f => f.type === type)) {
+          amlFindingsByTx[txId].push({ type, detail, bonusScore });
+        }
+      };
+
+      const circularRings = [];
+      const structuringGroups = [];
+      const muleHubs = [];
+      const rapidMovements = [];
+
+      // B1. Detect Structuring / Smurfing (3+ txs between ₹40,000 and ₹49,999 from same sender within 6 hours)
+      const bySender = {};
+      txs.forEach(tx => {
+        if (!bySender[tx.sender]) bySender[tx.sender] = [];
+        bySender[tx.sender].push(tx);
+      });
+
+      Object.entries(bySender).forEach(([senderId, sTxs]) => {
+        const nearThreshold = sTxs.filter(t => t.amount >= 40000 && t.amount < 50000);
+        if (nearThreshold.length >= 3) {
+          // Check time span
+          const firstTs = new Date(nearThreshold[0].timestamp).getTime();
+          const lastTs = new Date(nearThreshold[nearThreshold.length - 1].timestamp).getTime();
+          if ((lastTs - firstTs) <= 6 * 3600 * 1000) {
+            const totalSum = nearThreshold.reduce((s, t) => s + t.amount, 0);
+            structuringGroups.push({
+              sender: senderId,
+              txIds: nearThreshold.map(t => t.id),
+              count: nearThreshold.length,
+              totalAmount: totalSum
+            });
+            nearThreshold.forEach(t => {
+              addAmlFlag(
+                t.id,
+                'Transaction Structuring (Smurfing)',
+                `Part of ${nearThreshold.length} split transfers totaling ${formatINR(totalSum)} structured just under the ₹50,000 reporting threshold.`,
+                85
+              );
+            });
+          }
+        }
+      });
+
+      // B2. Detect Money Mule Behavior (High fan-in >= 4 unique senders + rapid outbound pass-through >= 70% within 2 hours)
+      Object.entries(accountStats).forEach(([accId, stats]) => {
+        const uniqueSenders = new Set(stats.recvTxs.map(t => t.sender));
+        if (uniqueSenders.size >= 4 && stats.totalIn >= 80000 && stats.totalOut >= stats.totalIn * 0.65) {
+          const lastInTime = Math.max(...stats.recvTxs.map(t => new Date(t.timestamp).getTime()));
+          const rapidOuts = stats.sentTxs.filter(t => {
+            const outTime = new Date(t.timestamp).getTime();
+            return Math.abs(outTime - lastInTime) <= 2 * 3600 * 1000;
+          });
+          if (rapidOuts.length >= 1) {
+            const passThroughRatio = Math.min(100, Math.round((stats.totalOut / stats.totalIn) * 100));
+            muleHubs.push({
+              accountId: accId,
+              uniqueSources: uniqueSenders.size,
+              totalIn: stats.totalIn,
+              totalOut: stats.totalOut,
+              passThroughRatio,
+              txIds: [...stats.recvTxs.map(t => t.id), ...rapidOuts.map(t => t.id)]
+            });
+            stats.recvTxs.forEach(t => {
+              addAmlFlag(
+                t.id,
+                'Money Mule Fan-In',
+                `Inbound funds into suspected mule hub ${accId} aggregating from ${uniqueSenders.size} distinct sources.`,
+                75
+              );
+            });
+            rapidOuts.forEach(t => {
+              addAmlFlag(
+                t.id,
+                'Money Mule Rapid Pass-Through',
+                `Account ${accId} dispersed ${passThroughRatio}% of multi-source funds rapidly after aggregation.`,
+                90
+              );
+            });
+          }
+        }
+      });
+
+      // B3. Detect Circular Fund Transfers (Directed cycles of length 3 or 4: A -> B -> C -> A or A -> B -> C -> D -> A)
+      const adj = {};
+      txs.forEach(tx => {
+        if (!adj[tx.sender]) adj[tx.sender] = [];
+        adj[tx.sender].push(tx);
+      });
+
+      const foundCycleKeys = new Set();
+      Object.keys(adj).forEach(startNode => {
+        // 3-node cycles
+        (adj[startNode] || []).forEach(e1 => {
+          if (e1.receiver === startNode) return;
+          (adj[e1.receiver] || []).forEach(e2 => {
+            if (e2.receiver === startNode || e2.receiver === e1.sender) return;
+            (adj[e2.receiver] || []).forEach(e3 => {
+              if (e3.receiver === startNode) {
+                const nodes = [startNode, e1.receiver, e2.receiver];
+                const sortedKey = [...nodes].sort().join('-');
+                if (!foundCycleKeys.has(sortedKey)) {
+                  foundCycleKeys.add(sortedKey);
+                  const edges = [e1, e2, e3];
+                  circularRings.push({
+                    length: 3,
+                    nodes,
+                    edges,
+                    totalVolume: edges.reduce((s, e) => s + e.amount, 0)
+                  });
+                  edges.forEach(edge => {
+                    addAmlFlag(
+                      edge.id,
+                      'Circular Fund Transfer (3-Node Ring)',
+                      `Participates in closed-loop layering cycle: ${nodes.join(' → ')} → ${startNode}.`,
+                      92
+                    );
+                  });
+                }
+              }
+            });
+
+            // 4-node cycles
+            (adj[e2.receiver] || []).forEach(e3 => {
+              if (e3.receiver === startNode || e3.receiver === e1.receiver || e3.receiver === e2.sender) return;
+              (adj[e3.receiver] || []).forEach(e4 => {
+                if (e4.receiver === startNode) {
+                  const nodes = [startNode, e1.receiver, e2.receiver, e3.receiver];
+                  const sortedKey = [...nodes].sort().join('-');
+                  if (!foundCycleKeys.has(sortedKey)) {
+                    foundCycleKeys.add(sortedKey);
+                    const edges = [e1, e2, e3, e4];
+                    circularRings.push({
+                      length: 4,
+                      nodes,
+                      edges,
+                      totalVolume: edges.reduce((s, e) => s + e.amount, 0)
+                    });
+                    edges.forEach(edge => {
+                      addAmlFlag(
+                        edge.id,
+                        'Circular Fund Transfer (4-Node Ring)',
+                        `Participates in 4-hop circular layering chain: ${nodes.join(' → ')} → ${startNode}.`,
+                        90
+                      );
+                    });
+                  }
+                }
+              });
+            });
+          });
+        });
+      });
+
+      // B4. Detect Rapid Fund Movement (Inbound credit >= ₹50k followed within 30 mins by outbound >= 80% of credit)
+      Object.entries(accountStats).forEach(([accId, stats]) => {
+        stats.recvTxs.forEach(inTx => {
+          if (inTx.amount >= 50000) {
+            const inTime = new Date(inTx.timestamp).getTime();
+            stats.sentTxs.forEach(outTx => {
+              const outTime = new Date(outTx.timestamp).getTime();
+              const diffMins = (outTime - inTime) / 60000;
+              if (diffMins > 0 && diffMins <= 30 && outTx.amount >= inTx.amount * 0.8) {
+                rapidMovements.push({ accountId: accId, inTx: inTx.id, outTx: outTx.id, diffMins: Math.round(diffMins) });
+                addAmlFlag(
+                  outTx.id,
+                  'Rapid Pass-Through Movement',
+                  `${formatINR(outTx.amount)} transferred out just ${Math.round(diffMins)} mins after receiving ${formatINR(inTx.amount)} (${inTx.id}).`,
+                  78
+                );
+              }
+            });
+          }
+        });
+      });
+
+      appState.amlPatterns = { circularRings, structuringGroups, muleHubs, rapidMovements };
+
+      // Step C: Score every transaction individually (ML + Z-Score Statistical Anomaly + AML Rule Score)
+      const seenPairs = new Set();
+
+      txs.forEach((tx, idx) => {
+        const senderProfile = accMap.get(tx.sender) || { baselineMean: 10000, baselineStd: 3500, primaryDevice: tx.device, city: tx.location };
+        const txTime = new Date(tx.timestamp).getTime();
+
+        // Count sender transactions in the trailing 60 minutes
+        const recent1hTxs = txs.filter(other =>
+          other.sender === tx.sender &&
+          other.id !== tx.id &&
+          Math.abs(txTime - new Date(other.timestamp).getTime()) <= 3600 * 1000
+        );
+
+        const pairKey = `${tx.sender}->${tx.receiver}`;
+        const isNewCounterparty = !seenPairs.has(pairKey);
+        seenPairs.add(pairKey);
+
+        // 1. Machine Learning Prediction (Logistic Regression)
+        const mlResult = fraudModel.predict(tx, {
+          recent1hCount: recent1hTxs.length,
+          isNewCounterparty,
+          avgAmount: senderProfile.baselineMean
+        });
+
+        // 2. Statistical Anomaly Score (Z-score & behavioral deviation)
+        const zScore = (tx.amount - senderProfile.baselineMean) / Math.max(1000, senderProfile.baselineStd);
+        const amountZPoints = Math.min(45, Math.max(0, (zScore - 1.2) * 11));
+        const velocityPoints = recent1hTxs.length >= 2 ? Math.min(35, recent1hTxs.length * 9) : 0;
+        const hour = new Date(tx.timestamp).getHours();
+        const nocturnalPoints = (hour >= 0 && hour <= 4) ? 22 : 0;
+        const deviceChangePoints = (tx.device && senderProfile.primaryDevice && tx.device !== senderProfile.primaryDevice) ? 18 : 0;
+        const newCpPoints = isNewCounterparty ? 10 : 0;
+
+        const anomalyScore = Math.min(100, Math.round(amountZPoints + velocityPoints + nocturnalPoints + deviceChangePoints + newCpPoints));
+
+        // 3. AML Typology Score
+        const txAmlFlags = amlFindingsByTx[tx.id] || [];
+        const amlScore = txAmlFlags.length > 0
+          ? Math.min(100, Math.max(...txAmlFlags.map(f => f.bonusScore)) + (txAmlFlags.length - 1) * 8)
+          : 0;
+
+        // 4. Unified Risk Score (0-100) combining all three independent engines
+        // Weighted blend + elevation when any single engine detects severe activity
+        const weightedBase = (mlResult.score * 0.35) + (anomalyScore * 0.35) + (amlScore * 0.30);
+        const peakSignal = Math.max(mlResult.score * 0.9, anomalyScore * 0.92, amlScore * 0.96);
+        const unifiedRisk = Math.min(99, Math.round(Math.max(weightedBase, peakSignal)));
+
+        // 5. Explainable AI (XAI) Evidence & Recommendations
+        const evidence = [];
+        if (mlResult.score >= 60) {
+          evidence.push({
+            source: 'ML Classifier',
+            tag: `Fraud Prob ${mlResult.score}%`,
+            text: `Logistic regression model elevated risk due to feature combination (amount scale, channel exposure, and counterparty novelty).`
+          });
+        }
+        if (zScore >= 2.2) {
+          evidence.push({
+            source: 'Statistical Baseline',
+            tag: `Z-Score +${zScore.toFixed(1)}σ`,
+            text: `Amount (${formatINR(tx.amount)}) exceeds account ${tx.sender}'s historical baseline (${formatINR(senderProfile.baselineMean)}) by ${zScore.toFixed(1)} standard deviations.`
+          });
+        }
+        if (recent1hTxs.length >= 2) {
+          evidence.push({
+            source: 'Velocity Monitor',
+            tag: `${recent1hTxs.length + 1} Txs / 1h`,
+            text: `Abnormal burst frequency: ${recent1hTxs.length + 1} outbound transfers initiated by ${tx.sender} within a 60-minute window.`
+          });
+        }
+        if (nocturnalPoints > 0) {
+          evidence.push({
+            source: 'Temporal Behavior',
+            tag: 'Nocturnal Window',
+            text: `Executed during atypical low-activity hours (${String(hour).padStart(2, '0')}:00 IST), inconsistent with standard retail behavior.`
+          });
+        }
+        if (deviceChangePoints > 0) {
+          evidence.push({
+            source: 'Device Telemetry',
+            tag: 'Unrecognized Endpoint',
+            text: `Initiated from "${tx.device}" instead of account's registered primary device "${senderProfile.primaryDevice}".`
+          });
+        }
+        txAmlFlags.forEach(flag => {
+          evidence.push({
+            source: 'Graph AML Engine',
+            tag: flag.type,
+            text: flag.detail
+          });
+        });
+
+        if (evidence.length === 0) {
+          evidence.push({
+            source: 'Baseline Check',
+            tag: 'Within Normal Bounds',
+            text: `Transaction amount, timing, and counterparty relationship align with historical account behavior.`
+          });
+        }
+
+        const recommendations = [];
+        if (unifiedRisk >= 80) {
+          recommendations.push('Place temporary hold on outbound high-value rails pending customer out-of-band verification.');
+          recommendations.push('Escalate linked account cluster to Financial Intelligence Unit (FIU) review queue.');
+        } else if (unifiedRisk >= 60) {
+          recommendations.push('Trigger step-up authentication (2FA / biometric re-verification) on originating device.');
+          recommendations.push('Review 7-day counterparty graph for emerging layering or mule pass-through patterns.');
+        } else if (unifiedRisk >= 35) {
+          recommendations.push('Keep under enhanced passive monitoring for subsequent velocity or structuring splits.');
+        } else {
+          recommendations.push('No immediate analyst intervention required; continue standard automated monitoring.');
+        }
+
+        tx.analysis = {
+          mlScore: mlResult.score,
+          mlContributions: mlResult.contributions,
+          anomalyScore,
+          zScore: Number(zScore.toFixed(2)),
+          amlScore,
+          amlFlags: txAmlFlags,
+          unifiedRisk,
+          riskBadge: getRiskBadge(unifiedRisk),
+          evidence,
+          recommendations,
+          recent1hCount: recent1hTxs.length + 1,
+          isNewCounterparty
+        };
+      });
+
+      appState.transactions = txs;
+      appState.modelWeights = fraudModel.weights.map((w, i) => ({
+        name: fraudModel.featureNames[i],
+        weight: Number(w.toFixed(3))
+      }));
+
+      // Step D: Compute Account-Level Risk Profiles
+      appState.accounts.forEach(acc => {
+        const stats = accountStats[acc.id];
+        const allRelatedTxs = [...stats.sentTxs, ...stats.recvTxs];
+        const suspiciousTxs = allRelatedTxs.filter(t => t.analysis.unifiedRisk >= 60);
+        const maxTxRisk = allRelatedTxs.length > 0 ? Math.max(...allRelatedTxs.map(t => t.analysis.unifiedRisk)) : 12;
+        const avgTxRisk = allRelatedTxs.length > 0
+          ? allRelatedTxs.reduce((s, t) => s + t.analysis.unifiedRisk, 0) / allRelatedTxs.length
+          : 10;
+
+        const amlSet = new Set();
+        allRelatedTxs.forEach(t => t.analysis.amlFlags.forEach(f => amlSet.add(f.type)));
+
+        const counterparties = new Set([
+          ...stats.sentTxs.map(t => t.receiver),
+          ...stats.recvTxs.map(t => t.sender)
+        ]);
+
+        let computedAccRisk = Math.round(maxTxRisk * 0.65 + avgTxRisk * 0.25 + Math.min(20, suspiciousTxs.length * 4));
+        if (amlSet.size > 0) computedAccRisk = Math.max(computedAccRisk, 78);
+        computedAccRisk = Math.min(99, Math.max(8, computedAccRisk));
+
+        acc.metrics = {
+          riskScore: computedAccRisk,
+          riskBadge: getRiskBadge(computedAccRisk),
+          inCount: stats.recvTxs.length,
+          outCount: stats.sentTxs.length,
+          totalIn: stats.totalIn,
+          totalOut: stats.totalOut,
+          uniqueCounterparties: counterparties.size,
+          suspiciousCount: suspiciousTxs.length,
+          amlFindings: Array.from(amlSet)
+        };
+      });
+
+      // Step E: Synchronize Investigation Alerts (preserving existing statuses & analyst notes)
+      const existingAlertsMap = new Map(appState.alerts.map(a => [a.txId, a]));
+      const highRiskTxs = txs.filter(t => t.analysis.unifiedRisk >= 60).sort((a, b) => b.analysis.unifiedRisk - a.analysis.unifiedRisk);
+
+      const updatedAlerts = highRiskTxs.map((tx, idx) => {
+        const existing = existingAlertsMap.get(tx.id);
+        const severity = tx.analysis.unifiedRisk >= 80 ? 'CRITICAL' : 'HIGH';
+        const primaryIndicator = tx.analysis.amlFlags.length > 0
+          ? tx.analysis.amlFlags[0].type
+          : tx.analysis.anomalyScore >= tx.analysis.mlScore
+            ? `Behavioral Anomaly (Z: +${tx.analysis.zScore}σ)`
+            : `ML Fraud Prediction (${tx.analysis.mlScore}%)`;
+
+        if (existing) {
+          existing.severity = severity;
+          existing.riskScore = tx.analysis.unifiedRisk;
+          existing.primaryIndicator = primaryIndicator;
+          existing.evidence = tx.analysis.evidence;
+          existing.recommendations = tx.analysis.recommendations;
+          return existing;
+        }
+
+        return {
+          id: `ALT-${8001 + idx}`,
+          txId: tx.id,
+          sender: tx.sender,
+          receiver: tx.receiver,
+          amount: tx.amount,
+          channel: tx.channel,
+          timestamp: tx.timestamp,
+          severity,
+          riskScore: tx.analysis.unifiedRisk,
+          primaryIndicator,
+          status: 'Open',
+          notes: '',
+          evidence: tx.analysis.evidence,
+          recommendations: tx.analysis.recommendations,
+          history: [
+            {
+              time: tx.timestamp,
+              actor: 'FinGuard Detection Engine',
+              action: `Alert auto-generated (Unified Risk: ${tx.analysis.unifiedRisk}/100) — ${primaryIndicator}`
+            }
+          ]
+        };
+      });
+
+      appState.alerts = updatedAlerts;
+      if (!appState.selectedAlertId && appState.alerts.length > 0) {
+        appState.selectedAlertId = appState.alerts[0].id;
+      }
+
+      saveState();
+    }
+
+    /*************************************************************************
+     * 4. PERSISTENCE (localStorage)
+     *************************************************************************/
+    function saveState() {
+      try {
+        const payload = {
+          accounts: appState.accounts,
+          transactions: appState.transactions.map(({ analysis, ...raw }) => raw),
+          alerts: appState.alerts
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch (e) {
+        console.warn('localStorage save skipped:', e);
+      }
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed.accounts && parsed.transactions && parsed.accounts.length > 0) {
+            appState.accounts = parsed.accounts;
+            appState.transactions = parsed.transactions;
+            appState.alerts = parsed.alerts || [];
+            runDetectionEngine();
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn('Error loading state, re-seeding:', e);
+      }
+      const seeded = generateInitialSyntheticDataset();
+      appState.accounts = seeded.accounts;
+      appState.transactions = seeded.transactions;
+      appState.alerts = [];
+      runDetectionEngine();
+    }
+
+    /*************************************************************************
+     * 5. NAVIGATION & SHELL CONTROLS
+     *************************************************************************/
+    const MODULES = [
+      { id: 'overview', label: 'Overview Dashboard', badge: '7 KPIs', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+      { id: 'monitor', label: 'Transaction Monitor', badge: () => appState.transactions.length, icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01' },
+      { id: 'aml', label: 'AML Investigation', badge: 'Graph', icon: 'M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1' },
+      { id: 'accounts', label: 'Account Risk', badge: () => appState.accounts.length, icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z' },
+      { id: 'cases', label: 'Alerts & Cases', badge: () => appState.alerts.filter(a => a.status === 'Open' || a.status === 'Escalated').length, icon: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z' },
+      { id: 'lab', label: 'Detection Lab', badge: 'Live AI', icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z' },
+      { id: 'methodology', label: 'Methodology & XAI', badge: 'Docs', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' }
+    ];
+
+    function renderSidebar() {
+      const nav = document.getElementById('navLinks');
+      nav.innerHTML = MODULES.map(m => {
+        const isActive = appState.activeModule === m.id;
+        const badgeVal = typeof m.badge === 'function' ? m.badge() : m.badge;
+        return `
+          <button onclick="navigate('${m.id}')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-medium transition ${
+            isActive
+              ? 'bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shadow-xs'
+              : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800/60 border border-transparent'
+          }">
+            <span class="flex items-center gap-2.5">
+              <svg class="w-4 h-4 ${isActive ? 'text-cyan-400' : 'text-gray-500'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${m.icon}"/>
+              </svg>
+              <span>${m.label}</span>
+            </span>
+            <span class="font-mono text-[10px] px-1.5 py-0.5 rounded ${
+              isActive ? 'bg-cyan-500/20 text-cyan-200' : 'bg-gray-800 text-gray-400'
+            }">${badgeVal}</span>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function navigate(moduleId) {
+      appState.activeModule = moduleId;
+      toggleSidebar(false);
+      renderSidebar();
+      renderMainModule();
+    }
+
+    function toggleSidebar(force) {
+      const sb = document.getElementById('sidebar');
+      const bd = document.getElementById('sidebarBackdrop');
+      const show = typeof force === 'boolean' ? force : sb.classList.contains('-translate-x-full');
+      if (show) {
+        sb.classList.remove('-translate-x-full');
+        bd.classList.remove('hidden');
+      } else {
+        sb.classList.add('-translate-x-full');
+        bd.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => toggleSidebar());
+
+    function openResetModal() {
+      const m = document.getElementById('resetModal');
+      m.classList.remove('hidden');
+      m.classList.add('flex');
+    }
+
+    function closeResetModal() {
+      const m = document.getElementById('resetModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function executeResetData() {
+      localStorage.removeItem(STORAGE_KEY);
+      appState.lastLabResult = null;
+      appState.selectedGraphNode = null;
+      loadState();
+      closeResetModal();
+      renderSidebar();
+      renderMainModule();
+      showToast('Dataset Reset Complete', 'Restored 45 synthetic accounts, 113 INR transactions, and embedded AML scenarios.', 'success');
+    }
+
+    /*************************************************************************
+     * 6. SLIDE-OVER XAI INSPECTION DRAWER (Transactions & Accounts)
+     *************************************************************************/
+    function openTxDrawer(txId) {
+      const tx = appState.transactions.find(t => t.id === txId);
+      if (!tx) return;
+      const sender = appState.accounts.find(a => a.id === tx.sender);
+      const receiver = appState.accounts.find(a => a.id === tx.receiver);
+      const badge = tx.analysis.riskBadge;
+
+      document.getElementById('drawerHeader').innerHTML = `
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono font-bold text-white text-base">${tx.id}</span>
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded border ${badge.cls}">${badge.label} (${tx.analysis.unifiedRisk}/100)</span>
+        </div>
+        <p class="text-xs text-gray-400 mt-0.5">${formatTime(tx.timestamp)} • Channel: ${tx.channel}</p>
+      `;
+
+      document.getElementById('drawerBody').innerHTML = `
+        <!-- Amount & Flow Banner -->
+        <div class="p-4 rounded-xl bg-gray-900/90 border border-gray-800 flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <div class="text-[11px] uppercase tracking-wider text-gray-400">Transfer Amount</div>
+            <div class="text-2xl font-mono font-bold text-white mt-0.5">${formatINR(tx.amount)}</div>
+          </div>
+          <div class="flex items-center gap-3 text-xs">
+            <div class="text-right">
+              <div class="font-mono font-semibold text-cyan-400 cursor-pointer hover:underline" onclick="openAccountDrawer('${tx.sender}')">${tx.sender}</div>
+              <div class="text-gray-400 text-[11px]">${sender ? sender.holderName : 'Synthetic Sender'}</div>
+            </div>
+            <div class="px-2 py-1 rounded bg-gray-800 text-gray-300 font-mono">→</div>
+            <div>
+              <div class="font-mono font-semibold text-cyan-400 cursor-pointer hover:underline" onclick="openAccountDrawer('${tx.receiver}')">${tx.receiver}</div>
+              <div class="text-gray-400 text-[11px]">${receiver ? receiver.holderName : 'Synthetic Receiver'}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3-Engine Signal Breakdown -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Multi-Engine Risk Decomposition</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="p-3.5 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] text-gray-400">ML Fraud Probability</div>
+              <div class="text-xl font-mono font-bold text-cyan-400 mt-1">${tx.analysis.mlScore}%</div>
+              <div class="w-full bg-gray-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-cyan-400 h-full" style="width:${tx.analysis.mlScore}%"></div>
+              </div>
+              <div class="text-[10px] text-gray-500 mt-1.5">Logistic Regression Classifier</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] text-gray-400">Statistical Anomaly</div>
+              <div class="text-xl font-mono font-bold text-amber-400 mt-1">${tx.analysis.anomalyScore}/100</div>
+              <div class="w-full bg-gray-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-amber-400 h-full" style="width:${tx.analysis.anomalyScore}%"></div>
+              </div>
+              <div class="text-[10px] text-gray-500 mt-1.5">Baseline Z-Score: ${tx.analysis.zScore}σ</div>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] text-gray-400">Graph AML Typology</div>
+              <div class="text-xl font-mono font-bold text-rose-400 mt-1">${tx.analysis.amlScore}/100</div>
+              <div class="w-full bg-gray-800 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-rose-400 h-full" style="width:${tx.analysis.amlScore}%"></div>
+              </div>
+              <div class="text-[10px] text-gray-500 mt-1.5">${tx.analysis.amlFlags.length} Pattern(s) Matched</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explainable AI (XAI) Supporting Evidence -->
+        <div class="space-y-2.5">
+          <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Explainable AI (XAI) Supporting Evidence</h4>
+          <div class="space-y-2">
+            ${tx.analysis.evidence.map(ev => `
+              <div class="p-3 rounded-lg bg-gray-900/80 border border-gray-800 flex items-start gap-3">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 shrink-0 mt-0.5">${ev.source}</span>
+                <div class="text-xs">
+                  <div class="font-semibold text-gray-200">${ev.tag}</div>
+                  <p class="text-gray-400 mt-0.5 leading-relaxed">${ev.text}</p>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- Telemetry Metadata -->
+        <div class="grid grid-cols-2 gap-3 text-xs bg-gray-900/50 p-3.5 rounded-xl border border-gray-800">
+          <div><span class="text-gray-500">Device Fingerprint:</span> <span class="font-mono text-gray-200 block mt-0.5">${tx.device}</span></div>
+          <div><span class="text-gray-500">Geo / Location:</span> <span class="font-mono text-gray-200 block mt-0.5">${tx.location}</span></div>
+          <div><span class="text-gray-500">1h Sender Velocity:</span> <span class="font-mono text-gray-200 block mt-0.5">${tx.analysis.recent1hCount} tx(s)</span></div>
+          <div><span class="text-gray-500">Counterparty History:</span> <span class="font-mono text-gray-200 block mt-0.5">${tx.analysis.isNewCounterparty ? 'First-Time Relationship' : 'Established Pair'}</span></div>
+        </div>
+
+        <!-- Recommended Analyst Actions -->
+        <div class="space-y-2">
+          <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Recommended Analyst Actions</h4>
+          <ul class="space-y-1.5">
+            ${tx.analysis.recommendations.map(rec => `
+              <li class="text-xs text-gray-300 flex items-start gap-2 bg-slatecard p-2.5 rounded-lg border border-gray-800">
+                <span class="text-cyan-400 font-bold">›</span>
+                <span>${rec}</span>
+              </li>
+            `).join('')}
+          </ul>
+          <p class="text-[11px] text-gray-500 italic pt-1">
+            Note: Analytical risk indicators highlight anomalous patterns for human compliance review and do not independently establish unlawful conduct.
+          </p>
+        </div>
+      `;
+
+      showDrawer();
+    }
+
+    function openAccountDrawer(accId) {
+      const acc = appState.accounts.find(a => a.id === accId);
+      if (!acc) return;
+      const badge = acc.metrics.riskBadge;
+      const relatedTxs = appState.transactions
+        .filter(t => t.sender === accId || t.receiver === accId)
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      document.getElementById('drawerHeader').innerHTML = `
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono font-bold text-white text-base">${acc.id}</span>
+          <span class="text-[11px] font-mono px-2 py-0.5 rounded border ${badge.cls}">${badge.label} (${acc.metrics.riskScore}/100)</span>
+        </div>
+        <p class="text-xs text-gray-400 mt-0.5">${acc.holderName} • ${acc.city} • ${acc.kycTier}</p>
+      `;
+
+      document.getElementById('drawerBody').innerHTML = `
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="p-3 rounded-xl bg-slatecard border border-gray-800">
+            <div class="text-[11px] text-gray-400">Total Inbound</div>
+            <div class="text-sm font-mono font-bold text-emerald-400 mt-1">${formatINR(acc.metrics.totalIn)}</div>
+            <div class="text-[10px] text-gray-500">${acc.metrics.inCount} credits</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slatecard border border-gray-800">
+            <div class="text-[11px] text-gray-400">Total Outbound</div>
+            <div class="text-sm font-mono font-bold text-rose-400 mt-1">${formatINR(acc.metrics.totalOut)}</div>
+            <div class="text-[10px] text-gray-500">${acc.metrics.outCount} debits</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slatecard border border-gray-800">
+            <div class="text-[11px] text-gray-400">Counterparties</div>
+            <div class="text-sm font-mono font-bold text-white mt-1">${acc.metrics.uniqueCounterparties}</div>
+            <div class="text-[10px] text-gray-500">Unique entities</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slatecard border border-gray-800">
+            <div class="text-[11px] text-gray-400">Baseline Mean</div>
+            <div class="text-sm font-mono font-bold text-cyan-400 mt-1">${formatINR(acc.baselineMean)}</div>
+            <div class="text-[10px] text-gray-500">Std Dev: ${formatINR(acc.baselineStd)}</div>
+          </div>
+        </div>
+
+        ${acc.metrics.amlFindings.length > 0 ? `
+          <div class="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 space-y-1.5">
+            <div class="text-xs font-semibold text-rose-300">Associated AML Typology Indicators</div>
+            <div class="flex flex-wrap gap-1.5">
+              ${acc.metrics.amlFindings.map(f => `<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-200">${f}</span>`).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Account Transaction Ledger (${relatedTxs.length})</h4>
+            <button onclick="closeDetailDrawer(); appState.selectedGraphNode='${acc.id}'; navigate('aml');" class="text-xs text-cyan-400 hover:underline">Inspect in Network Graph →</button>
+          </div>
+          <div class="space-y-2">
+            ${relatedTxs.map(t => {
+              const isOut = t.sender === accId;
+              const b = t.analysis.riskBadge;
+              return `
+                <div onclick="openTxDrawer('${t.id}')" class="p-3 rounded-lg bg-gray-900/90 hover:bg-gray-800/90 border border-gray-800 cursor-pointer flex items-center justify-between gap-3 transition">
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-mono text-xs font-semibold text-white">${t.id}</span>
+                      <span class="text-[10px] font-mono px-1.5 py-0.5 rounded ${isOut ? 'bg-rose-500/15 text-rose-300' : 'bg-emerald-500/15 text-emerald-300'}">${isOut ? 'OUT → ' + t.receiver : 'IN ← ' + t.sender}</span>
+                      <span class="text-[10px] font-mono text-gray-400">${t.channel}</span>
+                    </div>
+                    <div class="text-[11px] text-gray-400 mt-0.5">${formatTime(t.timestamp)} • ${t.reference}</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="font-mono text-xs font-bold ${isOut ? 'text-gray-200' : 'text-emerald-400'}">${isOut ? '-' : '+'}${formatINR(t.amount)}</div>
+                    <span class="text-[10px] font-mono px-1.5 py-0.2 rounded border ${b.cls}">${t.analysis.unifiedRisk}</span>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+
+      showDrawer();
+    }
+
+    function showDrawer() {
+      document.getElementById('detailDrawerOverlay').classList.remove('hidden');
+      document.getElementById('detailDrawer').classList.remove('translate-x-full');
+    }
+
+    function closeDetailDrawer() {
+      document.getElementById('detailDrawerOverlay').classList.add('hidden');
+      document.getElementById('detailDrawer').classList.add('translate-x-full');
+    }
+
+    /*************************************************************************
+     * 7. MODULE RENDERERS (All 7 Required Modules)
+     *************************************************************************/
+    function renderMainModule() {
+      const container = document.getElementById('mainContent');
+      switch (appState.activeModule) {
+        case 'overview':
+          container.innerHTML = renderOverviewModule();
+          break;
+        case 'monitor':
+          container.innerHTML = renderTransactionMonitorModule();
+          break;
+        case 'aml':
+          container.innerHTML = renderAmlInvestigationModule();
+          break;
+        case 'accounts':
+          container.innerHTML = renderAccountRiskModule();
+          break;
+        case 'cases':
+          container.innerHTML = renderAlertsCasesModule();
+          break;
+        case 'lab':
+          container.innerHTML = renderDetectionLabModule();
+          break;
+        case 'methodology':
+          container.innerHTML = renderMethodologyModule();
+          break;
+      }
+    }
+
+    /* ---------------- MODULE 1: OVERVIEW DASHBOARD ---------------- */
+    function renderOverviewModule() {
+      const txs = appState.transactions;
+      const totalTx = txs.length;
+      const totalVolume = txs.reduce((s, t) => s + t.amount, 0);
+      const mlFlagged = txs.filter(t => t.analysis.mlScore >= 60).length;
+      const highAlerts = appState.alerts.filter(a => a.severity === 'HIGH').length;
+      const criticalAlerts = appState.alerts.filter(a => a.severity === 'CRITICAL').length;
+      const flaggedAccounts = appState.accounts.filter(a => a.metrics.riskScore >= 60).length;
+      const totalAmlFindings =
+        appState.amlPatterns.circularRings.length +
+        appState.amlPatterns.structuringGroups.length +
+        appState.amlPatterns.muleHubs.length +
+        appState.amlPatterns.rapidMovements.length;
+
+      // Risk distribution buckets
+      const dist = {
+        low: txs.filter(t => t.analysis.unifiedRisk < 35).length,
+        medium: txs.filter(t => t.analysis.unifiedRisk >= 35 && t.analysis.unifiedRisk < 60).length,
+        high: txs.filter(t => t.analysis.unifiedRisk >= 60 && t.analysis.unifiedRisk < 80).length,
+        critical: txs.filter(t => t.analysis.unifiedRisk >= 80).length
+      };
+
+      // Channel analysis
+      const channels = ['UPI', 'IMPS', 'NEFT', 'WALLET'].map(ch => {
+        const chTxs = txs.filter(t => t.channel === ch);
+        const flagged = chTxs.filter(t => t.analysis.unifiedRisk >= 60).length;
+        const vol = chTxs.reduce((s, t) => s + t.amount, 0);
+        return { channel: ch, count: chTxs.length, flagged, vol };
+      });
+
+      // Hourly / Time-bucket trend (8 time buckets across dataset)
+      const sortedTxs = [...txs].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+      const bucketCount = 8;
+      const chunkSize = Math.max(1, Math.ceil(sortedTxs.length / bucketCount));
+      const trendBuckets = [];
+      for (let i = 0; i < sortedTxs.length; i += chunkSize) {
+        const slice = sortedTxs.slice(i, i + chunkSize);
+        const avgRisk = Math.round(slice.reduce((s, t) => s + t.analysis.unifiedRisk, 0) / slice.length);
+        const highCnt = slice.filter(t => t.analysis.unifiedRisk >= 60).length;
+        const label = formatTime(slice[0].timestamp).split(',')[1]?.trim() || `W${trendBuckets.length + 1}`;
+        trendBuckets.push({ label, count: slice.length, avgRisk, highCnt });
+      }
+
+      // Build SVG polyline points for Activity & Risk Trend
+      const svgW = 540, svgH = 165, padX = 28, padY = 20;
+      const maxCnt = Math.max(...trendBuckets.map(b => b.count), 1);
+      const countPoints = trendBuckets.map((b, idx) => {
+        const x = padX + (idx / Math.max(1, trendBuckets.length - 1)) * (svgW - padX * 2);
+        const y = svgH - padY - (b.count / maxCnt) * (svgH - padY * 2);
+        return `${x},${y}`;
+      }).join(' ');
+      const riskPoints = trendBuckets.map((b, idx) => {
+        const x = padX + (idx / Math.max(1, trendBuckets.length - 1)) * (svgW - padX * 2);
+        const y = svgH - padY - (b.avgRisk / 100) * (svgH - padY * 2);
+        return `${x},${y}`;
+      }).join(' ');
+
+      const recentSuspicious = [...txs]
+        .filter(t => t.analysis.unifiedRisk >= 60)
+        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+        .slice(0, 6);
+
+      return `
+        <div class="space-y-6">
+          <!-- Page Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h1 class="text-xl font-bold text-white tracking-tight">Financial Crime Intelligence Overview</h1>
+              <p class="text-xs text-gray-400 mt-0.5">Real-time multi-engine synthesis across ${appState.accounts.length} synthetic accounts & ${formatINR(totalVolume)} monitored volume</p>
+            </div>
+            <div class="flex items-center gap-2 text-xs">
+              <button onclick="navigate('aml')" class="px-3 py-1.5 rounded-lg bg-slatecard hover:bg-gray-800 border border-gray-700 text-cyan-300 font-medium transition">Explore AML Graph</button>
+              <button onclick="navigate('cases')" class="px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 font-medium transition">Review ${criticalAlerts + highAlerts} Alerts</button>
+            </div>
+          </div>
+
+          <!-- Top KPI Grid (6 Key Metrics) -->
+          <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3.5">
+            <div class="p-4 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] font-medium text-gray-400">Total Transactions</div>
+              <div class="text-2xl font-mono font-bold text-white mt-1">${totalTx}</div>
+              <div class="text-[11px] font-mono text-cyan-400 mt-1">${formatINR(totalVolume)}</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] font-medium text-gray-400">ML Fraud Flagged</div>
+              <div class="text-2xl font-mono font-bold text-cyan-400 mt-1">${mlFlagged}</div>
+              <div class="text-[11px] text-gray-500 mt-1">Prob ≥ 60% (LR Model)</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] font-medium text-gray-400">Critical Alerts</div>
+              <div class="text-2xl font-mono font-bold text-rose-400 mt-1">${criticalAlerts}</div>
+              <div class="text-[11px] text-rose-400/80 mt-1">Unified Risk ≥ 80</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] font-medium text-gray-400">High-Risk Alerts</div>
+              <div class="text-2xl font-mono font-bold text-amber-400 mt-1">${highAlerts}</div>
+              <div class="text-[11px] text-amber-400/80 mt-1">Unified Risk 60–79</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] font-medium text-gray-400">Flagged Accounts</div>
+              <div class="text-2xl font-mono font-bold text-purple-400 mt-1">${flaggedAccounts}</div>
+              <div class="text-[11px] text-gray-500 mt-1">of ${appState.accounts.length} active profiles</div>
+            </div>
+            <div class="p-4 rounded-xl bg-slatecard border border-gray-800">
+              <div class="text-[11px] font-medium text-gray-400">AML Typologies</div>
+              <div class="text-2xl font-mono font-bold text-emerald-400 mt-1">${totalAmlFindings}</div>
+              <div class="text-[11px] text-gray-500 mt-1">Rings, Mules & Structuring</div>
+            </div>
+          </div>
+
+          <!-- Charts Row: Transaction Trend + Risk Score Distribution -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <!-- Trend SVG Chart -->
+            <div class="lg:col-span-2 p-5 rounded-xl bg-slatecard border border-gray-800 flex flex-col justify-between">
+              <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <div>
+                  <h2 class="text-sm font-bold text-white">Transaction Velocity & Mean Risk Trend</h2>
+                  <p class="text-xs text-gray-400">Chronological window progression of volume vs. composite risk intensity</p>
+                </div>
+                <div class="flex items-center gap-4 text-[11px]">
+                  <span class="flex items-center gap-1.5 text-cyan-400"><span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>Tx Volume</span>
+                  <span class="flex items-center gap-1.5 text-rose-400"><span class="w-2.5 h-2.5 rounded-full bg-rose-400"></span>Avg Risk Score</span>
+                </div>
+              </div>
+              <div class="w-full overflow-hidden">
+                <svg viewBox="0 0 ${svgW} ${svgH}" class="w-full h-44">
+                  <!-- Grid lines -->
+                  <line x1="${padX}" y1="${padY}" x2="${svgW - padX}" y2="${padY}" stroke="#1F2937" stroke-dasharray="3 3" />
+                  <line x1="${padX}" y1="${svgH / 2}" x2="${svgW - padX}" y2="${svgH / 2}" stroke="#1F2937" stroke-dasharray="3 3" />
+                  <line x1="${padX}" y1="${svgH - padY}" x2="${svgW - padX}" y2="${svgH - padY}" stroke="#374151" />
+                  <!-- Lines -->
+                  <polyline fill="none" stroke="#06B6D4" stroke-width="2.5" points="${countPoints}" />
+                  <polyline fill="none" stroke="#F43F5E" stroke-width="2.5" points="${riskPoints}" />
+                  <!-- Data dots & labels -->
+                  ${trendBuckets.map((b, idx) => {
+                    const x = padX + (idx / Math.max(1, trendBuckets.length - 1)) * (svgW - padX * 2);
+                    const yCnt = svgH - padY - (b.count / maxCnt) * (svgH - padY * 2);
+                    const yRisk = svgH - padY - (b.avgRisk / 100) * (svgH - padY * 2);
+                    return `
+                      <circle cx="${x}" cy="${yCnt}" r="3.5" fill="#06B6D4" />
+                      <circle cx="${x}" cy="${yRisk}" r="3.5" fill="#F43F5E" />
+                      <text x="${x}" y="${svgH - 4}" text-anchor="middle" fill="#6B7280" font-size="9" font-family="monospace">${b.label}</text>
+                    `;
+                  }).join('')}
+                </svg>
+              </div>
+            </div>
+
+            <!-- Risk Score Distribution -->
+            <div class="p-5 rounded-xl bg-slatecard border border-gray-800 flex flex-col justify-between">
+              <div>
+                <h2 class="text-sm font-bold text-white">Risk Score Distribution</h2>
+                <p class="text-xs text-gray-400">Unified score segmentation across all transactions</p>
+              </div>
+              <div class="space-y-3.5 my-4">
+                ${[
+                  { label: 'Critical (80–100)', count: dist.critical, bar: 'bg-rose-500', text: 'text-rose-400' },
+                  { label: 'High (60–79)', count: dist.high, bar: 'bg-amber-500', text: 'text-amber-400' },
+                  { label: 'Medium (35–59)', count: dist.medium, bar: 'bg-cyan-500', text: 'text-cyan-400' },
+                  { label: 'Low (0–34)', count: dist.low, bar: 'bg-emerald-500', text: 'text-emerald-400' }
+                ].map(row => {
+                  const pct = totalTx ? Math.round((row.count / totalTx) * 100) : 0;
+                  return `
+                    <div>
+                      <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-300 font-medium">${row.label}</span>
+                        <span class="font-mono ${row.text}">${row.count} (${pct}%)</span>
+                      </div>
+                      <div class="w-full h-2 rounded-full bg-gray-800 overflow-hidden">
+                        <div class="${row.bar} h-full rounded-full transition-all duration-300" style="width:${pct}%"></div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+              <div class="pt-2 border-t border-gray-800 flex justify-between text-[11px] text-gray-400">
+                <span>AML Typology Breakdown:</span>
+                <span class="font-mono text-gray-200">${appState.amlPatterns.circularRings.length} Rings • ${appState.amlPatterns.muleHubs.length} Mules • ${appState.amlPatterns.structuringGroups.length} Structuring</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Channel Analysis + Detection System Status + Recent Suspicious Activity -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <!-- Channel Risk Analysis -->
+            <div class="lg:col-span-4 p-5 rounded-xl bg-slatecard border border-gray-800 space-y-3">
+              <div>
+                <h2 class="text-sm font-bold text-white">Payment Rail / Channel Analysis</h2>
+                <p class="text-xs text-gray-400">Transaction volume & high-risk concentration by INR rail</p>
+              </div>
+              <div class="space-y-2.5">
+                ${channels.map(c => {
+                  const flagRate = c.count ? Math.round((c.flagged / c.count) * 100) : 0;
+                  return `
+                    <div class="p-3 rounded-lg bg-gray-900/80 border border-gray-800 flex items-center justify-between">
+                      <div>
+                        <div class="flex items-center gap-2">
+                          <span class="font-mono text-xs font-bold text-white">${c.channel}</span>
+                          <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-gray-800 text-gray-300">${c.count} txs</span>
+                        </div>
+                        <div class="text-[11px] font-mono text-gray-400 mt-0.5">${formatINR(c.vol)}</div>
+                      </div>
+                      <div class="text-right">
+                        <div class="text-xs font-mono font-semibold ${c.flagged > 0 ? 'text-amber-400' : 'text-emerald-400'}">${c.flagged} Flagged</div>
+                        <div class="text-[10px] text-gray-500">${flagRate}% rail flag rate</div>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <!-- Detection System Status -->
+            <div class="lg:col-span-3 p-5 rounded-xl bg-slatecard border border-gray-800 space-y-3">
+              <div>
+                <h2 class="text-sm font-bold text-white">Detection System Status</h2>
+                <p class="text-xs text-gray-400">Live browser-executed AI models</p>
+              </div>
+              <div class="space-y-2.5 text-xs">
+                <div class="p-3 rounded-lg bg-gray-900/80 border border-gray-800">
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-cyan-300">Logistic Regression</span>
+                    <span class="text-[10px] font-mono text-emerald-400">READY</span>
+                  </div>
+                  <p class="text-[11px] text-gray-400 mt-1">6 normalized behavioral & rail features trained via gradient descent.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-gray-900/80 border border-gray-800">
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-amber-300">Z-Score Anomaly</span>
+                    <span class="text-[10px] font-mono text-emerald-400">ACTIVE</span>
+                  </div>
+                  <p class="text-[11px] text-gray-400 mt-1">Per-account mean/σ deviation, nocturnal & device drift telemetry.</p>
+                </div>
+                <div class="p-3 rounded-lg bg-gray-900/80 border border-gray-800">
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-rose-300">Graph AML Engine</span>
+                    <span class="text-[10px] font-mono text-emerald-400">ACTIVE</span>
+                  </div>
+                  <p class="text-[11px] text-gray-400 mt-1">Cycle detection (3/4-hop), <₹50k smurfing & mule fan-in/out.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Suspicious Activity Feed -->
+            <div class="lg:col-span-5 p-5 rounded-xl bg-slatecard border border-gray-800 flex flex-col justify-between">
+              <div class="flex items-center justify-between mb-3">
+                <div>
+                  <h2 class="text-sm font-bold text-white">Recent Suspicious Activity</h2>
+                  <p class="text-xs text-gray-400">Click any event for Explainable AI breakdown</p>
+                </div>
+                <button onclick="navigate('monitor')" class="text-xs text-cyan-400 hover:underline">View All →</button>
+              </div>
+              <div class="space-y-2">
+                ${recentSuspicious.map(tx => {
+                  const b = tx.analysis.riskBadge;
+                  const topReason = tx.analysis.amlFlags[0]?.type || tx.analysis.evidence[0]?.tag || 'Elevated Risk';
+                  return `
+                    <div onclick="openTxDrawer('${tx.id}')" class="p-2.5 rounded-lg bg-gray-900/80 hover:bg-gray-800 border border-gray-800 cursor-pointer flex items-center justify-between gap-2 transition">
+                      <div class="min-w-0">
+                        <div class="flex items-center gap-2">
+                          <span class="font-mono text-xs font-bold text-white">${tx.id}</span>
+                          <span class="font-mono text-[11px] text-cyan-400">${tx.sender} → ${tx.receiver}</span>
+                        </div>
+                        <div class="text-[11px] text-gray-400 truncate mt-0.5">${topReason}</div>
+                      </div>
+                      <div class="text-right shrink-0">
+                        <div class="font-mono text-xs font-bold text-white">${formatINR(tx.amount)}</div>
+                        <span class="text-[10px] font-mono px-1.5 py-0.2 rounded border ${b.cls}">${b.label} ${tx.analysis.unifiedRisk}</span>
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ---------------- MODULE 2: TRANSACTION MONITOR ---------------- */
+    function renderTransactionMonitorModule() {
+      const f = appState.txFilters;
+      let list = [...appState.transactions];
+
+      if (f.search.trim()) {
+        const q = f.search.toLowerCase();
+        list = list.filter(t =>
+          t.id.toLowerCase().includes(q) ||
+          t.sender.toLowerCase().includes(q) ||
+          t.receiver.toLowerCase().includes(q) ||
+          t.location.toLowerCase().includes(q) ||
+          t.reference.toLowerCase().includes(q)
+        );
+      }
+      if (f.channel !== 'ALL') {
+        list = list.filter(t => t.channel === f.channel);
+      }
+      if (f.riskLevel !== 'ALL') {
+        list = list.filter(t => t.analysis.riskBadge.label === f.riskLevel);
+      }
+      if (f.flagType !== 'ALL') {
+        if (f.flagType === 'ML') list = list.filter(t => t.analysis.mlScore >= 60);
+        if (f.flagType === 'ANOMALY') list = list.filter(t => t.analysis.anomalyScore >= 60);
+        if (f.flagType === 'AML') list = list.filter(t => t.analysis.amlFlags.length > 0);
+      }
+
+      list.sort((a, b) => {
+        if (f.sortBy === 'risk_desc') return b.analysis.unifiedRisk - a.analysis.unifiedRisk;
+        if (f.sortBy === 'amount_desc') return b.amount - a.amount;
+        if (f.sortBy === 'amount_asc') return a.amount - b.amount;
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      });
+
+      return `
+        <div class="space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h1 class="text-xl font-bold text-white">Transaction Intelligence Monitor</h1>
+              <p class="text-xs text-gray-400 mt-0.5">Inspect individual INR transactions, multi-engine scores, and XAI evidence</p>
+            </div>
+            <div class="text-xs font-mono text-gray-400 bg-slatecard px-3 py-1.5 rounded-lg border border-gray-800">
+              Showing <span class="text-cyan-400 font-bold">${list.length}</span> of ${appState.transactions.length} transactions
+            </div>
+          </div>
+
+          <!-- Filter & Search Bar -->
+          <div class="p-4 rounded-xl bg-slatecard border border-gray-800 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <div class="lg:col-span-2">
+              <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-1">Search ID / Account / City</label>
+              <input type="text" value="${f.search}" oninput="appState.txFilters.search=this.value; renderMainModule();" placeholder="e.g. TXN-5095, ACC-1038, Mumbai..." class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-xs text-white focus:outline-none focus:border-cyan-500" />
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-1">Channel</label>
+              <select onchange="appState.txFilters.channel=this.value; renderMainModule();" class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-xs text-white focus:outline-none focus:border-cyan-500">
+                <option value="ALL" ${f.channel === 'ALL' ? 'selected' : ''}>All Rails</option>
+                <option value="UPI" ${f.channel === 'UPI' ? 'selected' : ''}>UPI</option>
+                <option value="IMPS" ${f.channel === 'IMPS' ? 'selected' : ''}>IMPS</option>
+                <option value="NEFT" ${f.channel === 'NEFT' ? 'selected' : ''}>NEFT</option>
+                <option value="WALLET" ${f.channel === 'WALLET' ? 'selected' : ''}>WALLET</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-1">Risk Severity</label>
+              <select onchange="appState.txFilters.riskLevel=this.value; renderMainModule();" class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-xs text-white focus:outline-none focus:border-cyan-500">
+                <option value="ALL" ${f.riskLevel === 'ALL' ? 'selected' : ''}>All Levels</option>
+                <option value="CRITICAL" ${f.riskLevel === 'CRITICAL' ? 'selected' : ''}>Critical (80+)</option>
+                <option value="HIGH" ${f.riskLevel === 'HIGH' ? 'selected' : ''}>High (60–79)</option>
+                <option value="MEDIUM" ${f.riskLevel === 'MEDIUM' ? 'selected' : ''}>Medium (35–59)</option>
+                <option value="LOW" ${f.riskLevel === 'LOW' ? 'selected' : ''}>Low (&lt;35)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-wider text-gray-400 mb-1">Sort By</label>
+              <select onchange="appState.txFilters.sortBy=this.value; renderMainModule();" class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-xs text-white focus:outline-none focus:border-cyan-500">
+                <option value="timestamp_desc" ${f.sortBy === 'timestamp_desc' ? 'selected' : ''}>Newest First</option>
+                <option value="risk_desc" ${f.sortBy === 'risk_desc' ? 'selected' : ''}>Highest Unified Risk</option>
+                <option value="amount_desc" ${f.sortBy === 'amount_desc' ? 'selected' : ''}>Highest INR Amount</option>
+                <option value="amount_asc" ${f.sortBy === 'amount_asc' ? 'selected' : ''}>Lowest INR Amount</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Engine Signal Quick Pills -->
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="text-gray-400">Signal Filter:</span>
+            ${[
+              { id: 'ALL', label: 'All Transactions' },
+              { id: 'ML', label: 'ML Fraud Flagged (≥60%)' },
+              { id: 'ANOMALY', label: 'Statistical Anomalies (≥60)' },
+              { id: 'AML', label: 'AML Typology Hits' }
+            ].map(pill => `
+              <button onclick="appState.txFilters.flagType='${pill.id}'; renderMainModule();" class="px-3 py-1 rounded-full border text-xs transition ${
+                f.flagType === pill.id
+                  ? 'bg-cyan-500/20 border-cyan-500/40 text-cyan-300 font-medium'
+                  : 'bg-slatecard border-gray-800 text-gray-400 hover:text-gray-200'
+              }">${pill.label}</button>
+            `).join('')}
+          </div>
+
+          <!-- Transactions Table -->
+          <div class="rounded-xl bg-slatecard border border-gray-800 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-gray-800 bg-gray-900/70 text-[11px] uppercase tracking-wider text-gray-400">
+                    <th class="py-3 px-4">Tx ID & Time</th>
+                    <th class="py-3 px-4">Sender → Receiver</th>
+                    <th class="py-3 px-4">Amount (INR)</th>
+                    <th class="py-3 px-4">Rail</th>
+                    <th class="py-3 px-4">ML Prob</th>
+                    <th class="py-3 px-4">Anomaly</th>
+                    <th class="py-3 px-4">AML Indicator</th>
+                    <th class="py-3 px-4">Unified Risk</th>
+                    <th class="py-3 px-4 text-right">XAI</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-800/70 text-xs">
+                  ${list.map(tx => {
+                    const b = tx.analysis.riskBadge;
+                    const amlTag = tx.analysis.amlFlags.length > 0
+                      ? `<span class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30">${tx.analysis.amlFlags[0].type}</span>`
+                      : `<span class="text-gray-600">—</span>`;
+                    return `
+                      <tr onclick="openTxDrawer('${tx.id}')" class="hover:bg-gray-800/50 cursor-pointer transition">
+                        <td class="py-3 px-4 whitespace-nowrap">
+                          <div class="font-mono font-semibold text-white">${tx.id}</div>
+                          <div class="text-[11px] text-gray-500">${formatTime(tx.timestamp)}</div>
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap">
+                          <div class="font-mono text-cyan-400">${tx.sender} <span class="text-gray-500">→</span> ${tx.receiver}</div>
+                          <div class="text-[11px] text-gray-400">${tx.location}</div>
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap font-mono font-bold text-white">${formatINR(tx.amount)}</td>
+                        <td class="py-3 px-4 whitespace-nowrap">
+                          <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-gray-800 text-gray-300">${tx.channel}</span>
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap font-mono ${tx.analysis.mlScore >= 60 ? 'text-cyan-400 font-semibold' : 'text-gray-400'}">${tx.analysis.mlScore}%</td>
+                        <td class="py-3 px-4 whitespace-nowrap font-mono ${tx.analysis.anomalyScore >= 60 ? 'text-amber-400 font-semibold' : 'text-gray-400'}">${tx.analysis.anomalyScore}/100</td>
+                        <td class="py-3 px-4 whitespace-nowrap">${amlTag}</td>
+                        <td class="py-3 px-4 whitespace-nowrap">
+                          <span class="text-[11px] font-mono px-2 py-0.5 rounded border ${b.cls}">${b.label} ${tx.analysis.unifiedRisk}</span>
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap text-right">
+                          <button class="text-cyan-400 hover:text-cyan-300 font-medium">Inspect ›</button>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ---------------- MODULE 3: AML INVESTIGATION (SVG NETWORK GRAPH) ---------------- */
+    function renderAmlInvestigationModule() {
+      const filter = appState.amlGraphFilter;
+      const patterns = appState.amlPatterns;
+
+      // Determine highlighted transaction IDs and node IDs based on selected AML filter
+      const highlightedTxIds = new Set();
+      const highlightedNodeIds = new Set();
+
+      if (filter === 'RINGS' || filter === 'ALL') {
+        patterns.circularRings.forEach(r => {
+          r.nodes.forEach(n => highlightedNodeIds.add(n));
+          r.edges.forEach(e => highlightedTxIds.add(e.id));
+        });
+      }
+      if (filter === 'STRUCTURING' || filter === 'ALL') {
+        patterns.structuringGroups.forEach(g => {
+          highlightedNodeIds.add(g.sender);
+          g.txIds.forEach(id => {
+            highlightedTxIds.add(id);
+            const tx = appState.transactions.find(t => t.id === id);
+            if (tx) highlightedNodeIds.add(tx.receiver);
+          });
+        });
+      }
+      if (filter === 'MULES' || filter === 'ALL') {
+        patterns.muleHubs.forEach(m => {
+          highlightedNodeIds.add(m.accountId);
+          m.txIds.forEach(id => {
+            highlightedTxIds.add(id);
+            const tx = appState.transactions.find(t => t.id === id);
+            if (tx) {
+              highlightedNodeIds.add(tx.sender);
+              highlightedNodeIds.add(tx.receiver);
+            }
+          });
+        });
+      }
+
+      // Select focused subgraph of relevant accounts (up to 22 nodes for crisp layout)
+      const candidateNodeIds = new Set(highlightedNodeIds);
+      appState.transactions
+        .filter(t => t.analysis.unifiedRisk >= 60)
+        .forEach(t => {
+          candidateNodeIds.add(t.sender);
+          candidateNodeIds.add(t.receiver);
+        });
+
+      const graphNodes = appState.accounts
+        .filter(a => candidateNodeIds.has(a.id))
+        .slice(0, 22);
+      const graphNodeSet = new Set(graphNodes.map(n => n.id));
+
+      // Compute deterministic circular/clustered coordinates in 760x440 SVG space
+      const W = 760, H = 440, cx = W / 2, cy = H / 2;
+      const nodeCoords = {};
+      graphNodes.forEach((node, idx) => {
+        const angle = (idx / Math.max(1, graphNodes.length)) * Math.PI * 2 - Math.PI / 2;
+        const radiusX = idx % 2 === 0 ? 290 : 195;
+        const radiusY = idx % 2 === 0 ? 168 : 112;
+        nodeCoords[node.id] = {
+          x: Math.round(cx + Math.cos(angle) * radiusX),
+          y: Math.round(cy + Math.sin(angle) * radiusY)
+        };
+      });
+
+      // Aggregate directed edges between visible nodes
+      const edgeMap = {};
+      appState.transactions.forEach(tx => {
+        if (graphNodeSet.has(tx.sender) && graphNodeSet.has(tx.receiver)) {
+          const key = `${tx.sender}->${tx.receiver}`;
+          if (!edgeMap[key]) {
+            edgeMap[key] = {
+              sender: tx.sender,
+              receiver: tx.receiver,
+              count: 0,
+              totalAmount: 0,
+              maxRisk: 0,
+              isAmlHighlighted: false,
+              txs: []
+            };
+          }
+          edgeMap[key].count++;
+          edgeMap[key].totalAmount += tx.amount;
+          edgeMap[key].maxRisk = Math.max(edgeMap[key].maxRisk, tx.analysis.unifiedRisk);
+          if (highlightedTxIds.has(tx.id)) edgeMap[key].isAmlHighlighted = true;
+          edgeMap[key].txs.push(tx);
+        }
+      });
+
+      const edges = Object.values(edgeMap);
+      const selectedAcc = appState.selectedGraphNode
+        ? appState.accounts.find(a => a.id === appState.selectedGraphNode)
+        : null;
+
+      return `
+        <div class="space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h1 class="text-xl font-bold text-white">AML Graph & Fund-Flow Investigation</h1>
+              <p class="text-xs text-gray-400 mt-0.5">Directed relationship graph highlighting circular rings, smurfing clusters, and mule hubs</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              ${[
+                { id: 'ALL', label: 'All Suspicious Flows' },
+                { id: 'RINGS', label: `Circular Rings (${patterns.circularRings.length})` },
+                { id: 'STRUCTURING', label: `Structuring (${patterns.structuringGroups.length})` },
+                { id: 'MULES', label: `Mule Hubs (${patterns.muleHubs.length})` }
+              ].map(tab => `
+                <button onclick="appState.amlGraphFilter='${tab.id}'; renderMainModule();" class="px-3 py-1.5 rounded-lg text-xs font-medium border transition ${
+                  filter === tab.id
+                    ? 'bg-cyan-500/20 border-cyan-500/40 text-cyan-300'
+                    : 'bg-slatecard border-gray-800 text-gray-400 hover:text-gray-200'
+                }">${tab.label}</button>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-12 gap-4">
+            <!-- Interactive Network Canvas -->
+            <div class="xl:col-span-8 p-4 rounded-xl bg-slatecard border border-gray-800 flex flex-col">
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-gray-800 text-xs">
+                <div class="flex items-center gap-4">
+                  <span class="flex items-center gap-1.5 text-gray-300"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>Critical Node (80+)</span>
+                  <span class="flex items-center gap-1.5 text-gray-300"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>High Risk (60–79)</span>
+                  <span class="flex items-center gap-1.5 text-gray-300"><span class="w-2.5 h-2.5 rounded-full bg-cyan-500"></span>Connected Peer</span>
+                </div>
+                <span class="text-[11px] text-gray-400">Click any node to inspect flows</span>
+              </div>
+
+              <div class="w-full overflow-x-auto py-2">
+                <svg viewBox="0 0 ${W} ${H}" class="w-full min-w-[600px] h-[420px] bg-[#090E1A] rounded-lg border border-gray-800/80">
+                  <defs>
+                    <marker id="arrow-normal" markerWidth="8" markerHeight="8" refX="19" refY="3" orient="auto" markerUnits="strokeWidth">
+                      <path d="M0,0 L0,6 L7,3 z" fill="#4B5563" />
+                    </marker>
+                    <marker id="arrow-aml" markerWidth="9" markerHeight="9" refX="19" refY="3" orient="auto" markerUnits="strokeWidth">
+                      <path d="M0,0 L0,6 L8,3 z" fill="#F43F5E" />
+                    </marker>
+                    <marker id="arrow-selected" markerWidth="9" markerHeight="9" refX="19" refY="3" orient="auto" markerUnits="strokeWidth">
+                      <path d="M0,0 L0,6 L8,3 z" fill="#06B6D4" />
+                    </marker>
+                  </defs>
+
+                  <!-- Directed Edges -->
+                  ${edges.map(e => {
+                    const p1 = nodeCoords[e.sender];
+                    const p2 = nodeCoords[e.receiver];
+                    if (!p1 || !p2) return '';
+                    const isNodeSelected = appState.selectedGraphNode && (e.sender === appState.selectedGraphNode || e.receiver === appState.selectedGraphNode);
+                    const stroke = isNodeSelected ? '#06B6D4' : e.isAmlHighlighted ? '#F43F5E' : '#374151';
+                    const marker = isNodeSelected ? 'url(#arrow-selected)' : e.isAmlHighlighted ? 'url(#arrow-aml)' : 'url(#arrow-normal)';
+                    const strokeW = (isNodeSelected || e.isAmlHighlighted) ? 2.2 : 1.2;
+                    const opacity = (filter !== 'ALL' && !e.isAmlHighlighted && !isNodeSelected) ? 0.2 : 0.85;
+                    const midX = (p1.x + p2.x) / 2;
+                    const midY = (p1.y + p2.y) / 2;
+                    return `
+                      <g opacity="${opacity}">
+                        <line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="${stroke}" stroke-width="${strokeW}" marker-end="${marker}" />
+                        ${(e.isAmlHighlighted || isNodeSelected) ? `
+                          <rect x="${midX - 28}" y="${midY - 8}" width="56" height="15" rx="4" fill="#0B1120" stroke="${stroke}" stroke-width="0.8" />
+                          <text x="${midX}" y="${midY + 2.5}" text-anchor="middle" fill="#F3F4F6" font-size="8.5" font-family="monospace">${formatINR(e.totalAmount)}</text>
+                        ` : ''}
+                      </g>
+                    `;
+                  }).join('')}
+
+                  <!-- Account Nodes -->
+                  ${graphNodes.map(n => {
+                    const pos = nodeCoords[n.id];
+                    const rScore = n.metrics.riskScore;
+                    const fill = rScore >= 80 ? '#F43F5E' : rScore >= 60 ? '#F59E0B' : '#06B6D4';
+                    const isSelected = appState.selectedGraphNode === n.id;
+                    const dimmed = filter !== 'ALL' && !highlightedNodeIds.has(n.id) && !isSelected;
+                    return `
+                      <g class="graph-node" opacity="${dimmed ? 0.25 : 1}" onclick="appState.selectedGraphNode='${n.id}'; renderMainModule();">
+                        ${isSelected ? `<circle cx="${pos.x}" cy="${pos.y}" r="21" fill="none" stroke="#06B6D4" stroke-width="2" stroke-dasharray="3 2" />` : ''}
+                        <circle cx="${pos.x}" cy="${pos.y}" r="14" fill="#111827" stroke="${fill}" stroke-width="2.5" />
+                        <text x="${pos.x}" y="${pos.y + 3}" text-anchor="middle" fill="#FFFFFF" font-size="8" font-weight="bold" font-family="monospace">${rScore}</text>
+                        <text x="${pos.x}" y="${pos.y + 25}" text-anchor="middle" fill="#D1D5DB" font-size="9" font-family="monospace">${n.id}</text>
+                      </g>
+                    `;
+                  }).join('')}
+                </svg>
+              </div>
+            </div>
+
+            <!-- Right Panel: Detected Typology Cards & Selected Node Inspector -->
+            <div class="xl:col-span-4 space-y-4">
+              <!-- Selected Node Inspector -->
+              <div class="p-4 rounded-xl bg-slatecard border border-gray-800 space-y-3">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-cyan-400">Selected Graph Node</h3>
+                  ${selectedAcc ? `<button onclick="openAccountDrawer('${selectedAcc.id}')" class="text-xs text-cyan-300 hover:underline">Full Profile ›</button>` : ''}
+                </div>
+                ${selectedAcc ? `
+                  <div>
+                    <div class="flex items-center justify-between">
+                      <span class="font-mono font-bold text-white text-sm">${selectedAcc.id}</span>
+                      <span class="text-[11px] font-mono px-2 py-0.5 rounded border ${selectedAcc.metrics.riskBadge.cls}">Risk ${selectedAcc.metrics.riskScore}/100</span>
+                    </div>
+                    <div class="text-xs text-gray-300 mt-0.5">${selectedAcc.holderName}</div>
+                    <div class="text-[11px] text-gray-500">${selectedAcc.city} • ${selectedAcc.kycTier}</div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <div class="p-2.5 rounded-lg bg-gray-900 border border-gray-800">
+                      <div class="text-[10px] text-gray-400">Inbound Volume</div>
+                      <div class="font-mono font-bold text-emerald-400">${formatINR(selectedAcc.metrics.totalIn)}</div>
+                    </div>
+                    <div class="p-2.5 rounded-lg bg-gray-900 border border-gray-800">
+                      <div class="text-[10px] text-gray-400">Outbound Volume</div>
+                      <div class="font-mono font-bold text-rose-400">${formatINR(selectedAcc.metrics.totalOut)}</div>
+                    </div>
+                  </div>
+                ` : `
+                  <p class="text-xs text-gray-400">Click any account node in the network graph to inspect its inflow/outflow asymmetry and connected ring paths.</p>
+                `}
+              </div>
+
+              <!-- Detected AML Typologies List -->
+              <div class="p-4 rounded-xl bg-slatecard border border-gray-800 space-y-3 max-h-[340px] overflow-y-auto">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-gray-300">Detected AML Typology Clusters</h3>
+
+                ${patterns.circularRings.map((ring, i) => `
+                  <div onclick="appState.amlGraphFilter='RINGS'; appState.selectedGraphNode='${ring.nodes[0]}'; renderMainModule();" class="p-3 rounded-lg bg-rose-500/10 border border-rose-500/30 cursor-pointer hover:bg-rose-500/15 transition">
+                    <div class="flex items-center justify-between text-xs font-semibold text-rose-300">
+                      <span>Circular Ring #${i + 1} (${ring.length}-Hop)</span>
+                      <span class="font-mono">${formatINR(ring.totalVolume)}</span>
+                    </div>
+                    <div class="font-mono text-[11px] text-gray-200 mt-1">${ring.nodes.join(' → ')} → ${ring.nodes[0]}</div>
+                  </div>
+                `).join('')}
+
+                ${patterns.muleHubs.map((mule, i) => `
+                  <div onclick="appState.amlGraphFilter='MULES'; appState.selectedGraphNode='${mule.accountId}'; renderMainModule();" class="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 cursor-pointer hover:bg-amber-500/15 transition">
+                    <div class="flex items-center justify-between text-xs font-semibold text-amber-300">
+                      <span>Money Mule Hub #${i + 1} (${mule.accountId})</span>
+                      <span class="font-mono">${mule.passThroughRatio}% Pass-Through</span>
+                    </div>
+                    <div class="text-[11px] text-gray-300 mt-1">Aggregated ${formatINR(mule.totalIn)} from ${mule.uniqueSources} sources; rapidly dispersed ${formatINR(mule.totalOut)}.</div>
+                  </div>
+                `).join('')}
+
+                ${patterns.structuringGroups.map((st, i) => `
+                  <div onclick="appState.amlGraphFilter='STRUCTURING'; appState.selectedGraphNode='${st.sender}'; renderMainModule();" class="p-3 rounded-lg bg-purple-500/10 border border-purple-500/30 cursor-pointer hover:bg-purple-500/15 transition">
+                    <div class="flex items-center justify-between text-xs font-semibold text-purple-300">
+                      <span>Structuring Cluster #${i + 1} (${st.sender})</span>
+                      <span class="font-mono">${formatINR(st.totalAmount)}</span>
+                    </div>
+                    <div class="text-[11px] text-gray-300 mt-1">${st.count} split transfers structured just below ₹50,000 reporting threshold.</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ---------------- MODULE 4: ACCOUNT RISK ---------------- */
+    function renderAccountRiskModule() {
+      let accs = [...appState.accounts];
+      if (appState.accountSearch.trim()) {
+        const q = appState.accountSearch.toLowerCase();
+        accs = accs.filter(a =>
+          a.id.toLowerCase().includes(q) ||
+          a.holderName.toLowerCase().includes(q) ||
+          a.city.toLowerCase().includes(q)
+        );
+      }
+      accs.sort((a, b) => {
+        if (appState.accountSort === 'risk_desc') return b.metrics.riskScore - a.metrics.riskScore;
+        if (appState.accountSort === 'out_desc') return b.metrics.totalOut - a.metrics.totalOut;
+        if (appState.accountSort === 'in_desc') return b.metrics.totalIn - a.metrics.totalIn;
+        return a.id.localeCompare(b.id);
+      });
+
+      return `
+        <div class="space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h1 class="text-xl font-bold text-white">Account-Level Financial Risk Profiles</h1>
+              <p class="text-xs text-gray-400 mt-0.5">Behavioral baselines, counterparty fan-in/fan-out metrics, and associated AML flags</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <input type="text" value="${appState.accountSearch}" oninput="appState.accountSearch=this.value; renderMainModule();" placeholder="Search account ID, name, city..." class="px-3 py-1.5 rounded-lg bg-slatecard border border-gray-700 text-xs text-white focus:outline-none focus:border-cyan-500" />
+              <select onchange="appState.accountSort=this.value; renderMainModule();" class="px-3 py-1.5 rounded-lg bg-slatecard border border-gray-700 text-xs text-white focus:outline-none focus:border-cyan-500">
+                <option value="risk_desc" ${appState.accountSort === 'risk_desc' ? 'selected' : ''}>Highest Account Risk</option>
+                <option value="out_desc" ${appState.accountSort === 'out_desc' ? 'selected' : ''}>Highest Outbound INR</option>
+                <option value="in_desc" ${appState.accountSort === 'in_desc' ? 'selected' : ''}>Highest Inbound INR</option>
+                <option value="id_asc" ${appState.accountSort === 'id_asc' ? 'selected' : ''}>Account ID (A–Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="rounded-xl bg-slatecard border border-gray-800 overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="border-b border-gray-800 bg-gray-900/70 text-[11px] uppercase tracking-wider text-gray-400">
+                    <th class="py-3 px-4">Account & Holder</th>
+                    <th class="py-3 px-4">KYC & City</th>
+                    <th class="py-3 px-4">Inbound (Count / INR)</th>
+                    <th class="py-3 px-4">Outbound (Count / INR)</th>
+                    <th class="py-3 px-4">Peers</th>
+                    <th class="py-3 px-4">Suspicious Txs</th>
+                    <th class="py-3 px-4">AML Findings</th>
+                    <th class="py-3 px-4">Account Risk</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-800/70 text-xs">
+                  ${accs.map(a => {
+                    const m = a.metrics;
+                    const b = m.riskBadge;
+                    return `
+                      <tr onclick="openAccountDrawer('${a.id}')" class="hover:bg-gray-800/50 cursor-pointer transition">
+                        <td class="py-3 px-4 whitespace-nowrap">
+                          <div class="font-mono font-bold text-cyan-400">${a.id}</div>
+                          <div class="text-gray-200 font-medium">${a.holderName}</div>
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap">
+                          <div class="text-gray-300">${a.city}</div>
+                          <div class="text-[11px] text-gray-500">${a.kycTier}</div>
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap font-mono">
+                          <span class="text-emerald-400 font-semibold">${formatINR(m.totalIn)}</span>
+                          <span class="text-gray-500 text-[11px]"> (${m.inCount})</span>
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap font-mono">
+                          <span class="text-gray-200 font-semibold">${formatINR(m.totalOut)}</span>
+                          <span class="text-gray-500 text-[11px]"> (${m.outCount})</span>
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap font-mono text-gray-300">${m.uniqueCounterparties}</td>
+                        <td class="py-3 px-4 whitespace-nowrap font-mono ${m.suspiciousCount > 0 ? 'text-amber-400 font-bold' : 'text-gray-500'}">${m.suspiciousCount}</td>
+                        <td class="py-3 px-4">
+                          ${m.amlFindings.length > 0
+                            ? `<div class="flex flex-wrap gap-1">${m.amlFindings.map(f => `<span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-300 border border-rose-500/30">${f}</span>`).join('')}</div>`
+                            : '<span class="text-gray-600">—</span>'
+                          }
+                        </td>
+                        <td class="py-3 px-4 whitespace-nowrap">
+                          <span class="text-[11px] font-mono px-2 py-0.5 rounded border ${b.cls}">${b.label} ${m.riskScore}</span>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ---------------- MODULE 5: ALERTS & CASES ---------------- */
+    function renderAlertsCasesModule() {
+      let alerts = [...appState.alerts];
+      if (appState.alertFilterSeverity !== 'ALL') {
+        alerts = alerts.filter(a => a.severity === appState.alertFilterSeverity);
+      }
+      if (appState.alertFilterStatus !== 'ALL') {
+        alerts = alerts.filter(a => a.status === appState.alertFilterStatus);
+      }
+
+      const selectedAlert = appState.alerts.find(a => a.id === appState.selectedAlertId) || alerts[0] || null;
+
+      return `
+        <div class="space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h1 class="text-xl font-bold text-white">Investigation Alerts & Case Management</h1>
+              <p class="text-xs text-gray-400 mt-0.5">Triage explainable alerts, document analyst notes, and maintain audit history</p>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <select onchange="appState.alertFilterSeverity=this.value; renderMainModule();" class="px-3 py-1.5 rounded-lg bg-slatecard border border-gray-700 text-white">
+                <option value="ALL" ${appState.alertFilterSeverity === 'ALL' ? 'selected' : ''}>All Severities</option>
+                <option value="CRITICAL" ${appState.alertFilterSeverity === 'CRITICAL' ? 'selected' : ''}>Critical Only</option>
+                <option value="HIGH" ${appState.alertFilterSeverity === 'HIGH' ? 'selected' : ''}>High Only</option>
+              </select>
+              <select onchange="appState.alertFilterStatus=this.value; renderMainModule();" class="px-3 py-1.5 rounded-lg bg-slatecard border border-gray-700 text-white">
+                <option value="ALL" ${appState.alertFilterStatus === 'ALL' ? 'selected' : ''}>All Statuses</option>
+                <option value="Open" ${appState.alertFilterStatus === 'Open' ? 'selected' : ''}>Open</option>
+                <option value="Under Investigation" ${appState.alertFilterStatus === 'Under Investigation' ? 'selected' : ''}>Under Investigation</option>
+                <option value="Escalated" ${appState.alertFilterStatus === 'Escalated' ? 'selected' : ''}>Escalated</option>
+                <option value="False Positive" ${appState.alertFilterStatus === 'False Positive' ? 'selected' : ''}>False Positive</option>
+                <option value="Closed" ${appState.alertFilterStatus === 'Closed' ? 'selected' : ''}>Closed</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <!-- Left Alert Queue -->
+            <div class="lg:col-span-5 space-y-2.5 max-h-[640px] overflow-y-auto pr-1">
+              ${alerts.length === 0 ? `
+                <div class="p-6 rounded-xl bg-slatecard border border-gray-800 text-center text-xs text-gray-400">
+                  No alerts match the current filter criteria.
+                </div>
+              ` : alerts.map(al => {
+                const isSelected = selectedAlert && selectedAlert.id === al.id;
+                const sevBadge = al.severity === 'CRITICAL'
+                  ? 'bg-rose-500/15 text-rose-400 border-rose-500/30'
+                  : 'bg-amber-500/15 text-amber-400 border-amber-500/30';
+                return `
+                  <div onclick="appState.selectedAlertId='${al.id}'; renderMainModule();" class="p-3.5 rounded-xl border cursor-pointer transition ${
+                    isSelected
+                      ? 'bg-cyan-500/10 border-cyan-500/40'
+                      : 'bg-slatecard border-gray-800 hover:border-gray-700'
+                  }">
+                    <div class="flex items-center justify-between gap-2">
+                      <div class="flex items-center gap-2">
+                        <span class="font-mono text-xs font-bold text-white">${al.id}</span>
+                        <span class="text-[10px] font-mono px-1.5 py-0.5 rounded border ${sevBadge}">${al.severity} (${al.riskScore})</span>
+                      </div>
+                      <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-gray-800 text-gray-300">${al.status}</span>
+                    </div>
+                    <div class="text-xs font-medium text-gray-200 mt-1.5">${al.primaryIndicator}</div>
+                    <div class="flex items-center justify-between text-[11px] text-gray-400 mt-1.5 font-mono">
+                      <span>${al.sender} → ${al.receiver}</span>
+                      <span class="text-white font-semibold">${formatINR(al.amount)}</span>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <!-- Right Case Workspace -->
+            <div class="lg:col-span-7">
+              ${selectedAlert ? `
+                <div class="p-5 rounded-xl bg-slatecard border border-gray-800 space-y-5">
+                  <div class="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-gray-800">
+                    <div>
+                      <div class="flex items-center gap-2.5">
+                        <h2 class="text-base font-mono font-bold text-white">${selectedAlert.id}</h2>
+                        <span class="text-xs font-mono text-cyan-400 cursor-pointer hover:underline" onclick="openTxDrawer('${selectedAlert.txId}')">Linked Tx: ${selectedAlert.txId}</span>
+                      </div>
+                      <p class="text-xs text-gray-400 mt-1">${selectedAlert.primaryIndicator} • ${formatTime(selectedAlert.timestamp)}</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <label class="text-[11px] text-gray-400">Case Status:</label>
+                      <select onchange="updateAlertStatus('${selectedAlert.id}', this.value)" class="px-3 py-1.5 rounded-lg bg-gray-900 border border-gray-700 text-xs font-medium text-white focus:border-cyan-500">
+                        ${['Open', 'Under Investigation', 'Escalated', 'False Positive', 'Closed'].map(st => `
+                          <option value="${st}" ${selectedAlert.status === st ? 'selected' : ''}>${st}</option>
+                        `).join('')}
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Supporting Evidence -->
+                  <div class="space-y-2">
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Detection Explanation & Evidence</h3>
+                    <div class="space-y-2">
+                      ${selectedAlert.evidence.map(ev => `
+                        <div class="p-3 rounded-lg bg-gray-900/80 border border-gray-800 text-xs">
+                          <div class="flex items-center justify-between">
+                            <span class="font-semibold text-cyan-300">${ev.tag}</span>
+                            <span class="text-[10px] font-mono text-gray-400">${ev.source}</span>
+                          </div>
+                          <p class="text-gray-300 mt-1">${ev.text}</p>
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+
+                  <!-- Recommended Analyst Actions -->
+                  <div class="space-y-2">
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Recommended Analyst Actions</h3>
+                    <div class="space-y-1.5">
+                      ${selectedAlert.recommendations.map(r => `
+                        <div class="text-xs text-gray-300 p-2.5 rounded-lg bg-gray-900/50 border border-gray-800 flex items-center gap-2">
+                          <span class="text-cyan-400">✓</span>
+                          <span>${r}</span>
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+
+                  <!-- Analyst Notes -->
+                  <div class="space-y-2">
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Analyst Investigation Notes (Persisted)</h3>
+                    <textarea id="caseNoteInput" rows="3" placeholder="Record investigation rationale, customer outreach verification, or SAR/STR filing notes..." class="w-full p-3 rounded-lg bg-gray-900 border border-gray-700 text-xs text-white focus:outline-none focus:border-cyan-500">${selectedAlert.notes || ''}</textarea>
+                    <div class="flex justify-end">
+                      <button onclick="saveAlertNote('${selectedAlert.id}')" class="px-4 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold transition">Save Case Note</button>
+                    </div>
+                  </div>
+
+                  <!-- Audit History Log -->
+                  <div class="space-y-2 pt-2 border-t border-gray-800">
+                    <h3 class="text-xs font-semibold uppercase tracking-wider text-gray-400">Investigation Audit Trail</h3>
+                    <div class="space-y-1.5 max-h-36 overflow-y-auto">
+                      ${selectedAlert.history.map(h => `
+                        <div class="text-[11px] flex items-start justify-between gap-2 text-gray-400 bg-gray-900/40 px-3 py-1.5 rounded">
+                          <span><strong class="text-gray-200">${h.actor}:</strong> ${h.action}</span>
+                          <span class="font-mono text-[10px] shrink-0">${formatTime(h.time)}</span>
+                        </div>
+                      `).join('')}
+                    </div>
+                  </div>
+                </div>
+              ` : `
+                <div class="p-8 rounded-xl bg-slatecard border border-gray-800 text-center text-xs text-gray-400">
+                  Select an alert from the left queue to open its investigation workspace.
+                </div>
+              `}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateAlertStatus(alertId, newStatus) {
+      const al = appState.alerts.find(a => a.id === alertId);
+      if (!al) return;
+      al.status = newStatus;
+      al.history.unshift({
+        time: new Date().toISOString(),
+        actor: 'Compliance Analyst',
+        action: `Changed case status to "${newStatus}"`
+      });
+      saveState();
+      renderSidebar();
+      renderMainModule();
+      showToast('Case Status Updated', `${alertId} marked as ${newStatus}.`, 'info');
+    }
+
+    function saveAlertNote(alertId) {
+      const al = appState.alerts.find(a => a.id === alertId);
+      const input = document.getElementById('caseNoteInput');
+      if (!al || !input) return;
+      al.notes = input.value;
+      al.history.unshift({
+        time: new Date().toISOString(),
+        actor: 'Compliance Analyst',
+        action: `Updated investigation notes (${al.notes.length} chars)`
+      });
+      saveState();
+      renderMainModule();
+      showToast('Investigation Note Saved', `Persisted note to ${alertId} in localStorage.`, 'success');
+    }
+
+    /* ---------------- MODULE 6: DETECTION LAB (LIVE SIMULATOR) ---------------- */
+    function renderDetectionLabModule() {
+      const accOptions = appState.accounts
+        .map(a => `<option value="${a.id}">${a.id} — ${a.holderName} (${a.city})</option>`)
+        .join('');
+
+      const res = appState.lastLabResult;
+
+      return `
+        <div class="space-y-6">
+          <div>
+            <h1 class="text-xl font-bold text-white">Real-Time AI Detection Lab & Scenario Simulator</h1>
+            <p class="text-xs text-gray-400 mt-0.5">Trigger 1-click financial crime typologies or craft custom INR transactions to test the live ML + Z-Score + Graph AML engine</p>
+          </div>
+
+          <!-- 6 Required 1-Click Scenario Presets -->
+          <div class="p-4 rounded-xl bg-slatecard border border-gray-800 space-y-3">
+            <div class="text-xs font-semibold uppercase tracking-wider text-cyan-400">1-Click Demonstrable Scenarios (Live Injection)</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              <button onclick="runPresetScenario('normal')" class="p-3.5 rounded-xl bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-emerald-500/40 text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-emerald-400">1. Normal Transaction</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300">Baseline</span>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-1">Routine ₹3,200 UPI transfer on registered device during daytime hours.</p>
+              </button>
+
+              <button onclick="runPresetScenario('high_value')" class="p-3.5 rounded-xl bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-amber-500/40 text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-amber-400">2. Unusual High-Value</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300">Z-Score + ML</span>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-1">₹3,40,000 IMPS transfer at 02:30 AM from an unrecognized endpoint.</p>
+              </button>
+
+              <button onclick="runPresetScenario('velocity')" class="p-3.5 rounded-xl bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-amber-500/40 text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-amber-400">3. Transaction Velocity Burst</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300">5 Rapid Txs</span>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-1">Injects 5 rapid consecutive UPI transfers within 6 minutes to new peers.</p>
+              </button>
+
+              <button onclick="runPresetScenario('structuring')" class="p-3.5 rounded-xl bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-rose-500/40 text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-rose-400">4. Transaction Structuring</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-300">AML Smurfing</span>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-1">Injects 3 split transfers (₹49,100, ₹48,700, ₹49,400) just below ₹50k threshold.</p>
+              </button>
+
+              <button onclick="runPresetScenario('mule')" class="p-3.5 rounded-xl bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-rose-500/40 text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-rose-400">5. Money Mule Behaviour</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-300">Fan-In/Out</span>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-1">4 distinct sources fund a mule hub followed by immediate 92% sweep outbound.</p>
+              </button>
+
+              <button onclick="runPresetScenario('circular')" class="p-3.5 rounded-xl bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-rose-500/40 text-left transition">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-rose-400">6. Circular Fund Transfer</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-300">A→B→C→A</span>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-1">Injects a closed 3-hop layering loop returning ₹1,42,000 back to origin.</p>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- Custom Transaction Builder Form -->
+            <form onsubmit="handleCustomSimulation(event)" class="lg:col-span-5 p-5 rounded-xl bg-slatecard border border-gray-800 space-y-4">
+              <h2 class="text-sm font-bold text-white">Custom Transaction Simulator</h2>
+              <div class="space-y-3 text-xs">
+                <div>
+                  <label class="block text-gray-400 mb-1">Originating Account (Sender)</label>
+                  <select id="simSender" class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white">
+                    ${accOptions}
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-gray-400 mb-1">Beneficiary Account (Receiver)</label>
+                  <select id="simReceiver" class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white">
+                    ${appState.accounts.slice().reverse().map(a => `<option value="${a.id}">${a.id} — ${a.holderName}</option>`).join('')}
+                  </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-gray-400 mb-1">Amount (INR)</label>
+                    <input id="simAmount" type="number" min="10" max="10000000" value="49500" required class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 font-mono text-white" />
+                  </div>
+                  <div>
+                    <label class="block text-gray-400 mb-1">Payment Rail</label>
+                    <select id="simChannel" class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white">
+                      <option value="UPI">UPI</option>
+                      <option value="IMPS" selected>IMPS</option>
+                      <option value="NEFT">NEFT</option>
+                      <option value="WALLET">WALLET</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-gray-400 mb-1">Hour of Day (0–23 IST)</label>
+                    <input id="simHour" type="number" min="0" max="23" value="14" required class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 font-mono text-white" />
+                  </div>
+                  <div>
+                    <label class="block text-gray-400 mb-1">Device Telemetry</label>
+                    <select id="simDevice" class="w-full px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 text-white">
+                      <option value="PRIMARY">Account Registered Device</option>
+                      <option value="Unknown-Android-Spoof">New / Unrecognized Device</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="w-full py-2.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition shadow-lg shadow-cyan-500/20">
+                Execute Live AI Scoring & Inject
+              </button>
+            </form>
+
+            <!-- Live Detection Engine Output Panel -->
+            <div class="lg:col-span-7 p-5 rounded-xl bg-slatecard border border-gray-800 flex flex-col justify-between">
+              ${res ? `
+                <div class="space-y-4">
+                  <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-gray-800">
+                    <div>
+                      <span class="text-[11px] font-mono uppercase text-cyan-400">Live Engine Verdict • ${res.scenarioName}</span>
+                      <h3 class="text-base font-bold text-white mt-0.5">${res.tx.id}: ${res.tx.sender} → ${res.tx.receiver} (${formatINR(res.tx.amount)})</h3>
+                    </div>
+                    <span class="text-xs font-mono px-3 py-1 rounded-lg border ${res.tx.analysis.riskBadge.cls}">
+                      ${res.tx.analysis.riskBadge.label} RISK: ${res.tx.analysis.unifiedRisk}/100
+                    </span>
+                  </div>
+
+                  <div class="grid grid-cols-3 gap-3">
+                    <div class="p-3 rounded-lg bg-gray-900 border border-gray-800">
+                      <div class="text-[11px] text-gray-400">ML Fraud Prob.</div>
+                      <div class="text-lg font-mono font-bold text-cyan-400 mt-0.5">${res.tx.analysis.mlScore}%</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gray-900 border border-gray-800">
+                      <div class="text-[11px] text-gray-400">Anomaly Score</div>
+                      <div class="text-lg font-mono font-bold text-amber-400 mt-0.5">${res.tx.analysis.anomalyScore}/100</div>
+                    </div>
+                    <div class="p-3 rounded-lg bg-gray-900 border border-gray-800">
+                      <div class="text-[11px] text-gray-400">AML Typology</div>
+                      <div class="text-lg font-mono font-bold text-rose-400 mt-0.5">${res.tx.analysis.amlScore}/100</div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-2">
+                    <div class="text-xs font-semibold text-gray-300">Explainable AI Findings (${res.injectedCount} transaction(s) added to live platform):</div>
+                    ${res.tx.analysis.evidence.map(e => `
+                      <div class="p-2.5 rounded-lg bg-gray-900/90 border border-gray-800 text-xs flex items-start gap-2.5">
+                        <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300 shrink-0">${e.source}</span>
+                        <span class="text-gray-300">${e.text}</span>
+                      </div>
+                    `).join('')}
+                  </div>
+
+                  <div class="flex flex-wrap gap-2 pt-2">
+                    <button onclick="openTxDrawer('${res.tx.id}')" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs text-white font-medium">Open Full XAI Drawer</button>
+                    <button onclick="navigate('aml')" class="px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-xs text-cyan-300 font-medium">View Updated AML Graph</button>
+                    <button onclick="navigate('cases')" class="px-3 py-1.5 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-xs text-rose-300 font-medium">Inspect Generated Alerts</button>
+                  </div>
+                </div>
+              ` : `
+                <div class="h-full flex flex-col items-center justify-center text-center py-12 px-4">
+                  <div class="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  </div>
+                  <h3 class="text-sm font-bold text-white">Awaiting Transaction Simulation</h3>
+                  <p class="text-xs text-gray-400 max-w-md mt-1">
+                    Select any 1-click typology scenario above or submit custom transfer parameters on the left to observe real-time Logistic Regression scoring, Z-score anomaly evaluation, and graph AML detection.
+                  </p>
+                </div>
+              `}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function injectTransactionsAndScore(newTxs, scenarioName) {
+      let maxNum = 5000;
+      appState.transactions.forEach(t => {
+        const n = parseInt(t.id.replace('TXN-', ''), 10);
+        if (!isNaN(n) && n > maxNum) maxNum = n;
+      });
+
+      const created = newTxs.map((raw, i) => ({
+        id: `TXN-${maxNum + i + 1}`,
+        sender: raw.sender,
+        receiver: raw.receiver,
+        amount: Math.round(raw.amount),
+        channel: raw.channel,
+        timestamp: raw.timestamp,
+        device: raw.device,
+        location: raw.location,
+        reference: raw.reference || scenarioName
+      }));
+
+      appState.transactions.push(...created);
+      runDetectionEngine();
+
+      const primaryTx = appState.transactions.find(t => t.id === created[created.length - 1].id);
+      appState.lastLabResult = {
+        scenarioName,
+        tx: primaryTx,
+        injectedCount: created.length
+      };
+
+      renderSidebar();
+      renderMainModule();
+      showToast(
+        `Simulated: ${scenarioName}`,
+        `Unified Risk ${primaryTx.analysis.unifiedRisk}/100 (${primaryTx.analysis.riskBadge.label}) • Dashboard & Graph updated.`,
+        primaryTx.analysis.unifiedRisk >= 60 ? 'warning' : 'success'
+      );
+    }
+
+    function handleCustomSimulation(e) {
+      e.preventDefault();
+      const sender = document.getElementById('simSender').value;
+      const receiver = document.getElementById('simReceiver').value;
+      const amount = Number(document.getElementById('simAmount').value);
+      const channel = document.getElementById('simChannel').value;
+      const hour = Number(document.getElementById('simHour').value);
+      const devChoice = document.getElementById('simDevice').value;
+
+      if (sender === receiver) {
+        showToast('Invalid Transfer', 'Sender and receiver accounts must be distinct.', 'danger');
+        return;
+      }
+
+      const senderAcc = appState.accounts.find(a => a.id === sender);
+      const d = new Date();
+      d.setHours(hour, 15, 0, 0);
+
+      injectTransactionsAndScore([{
+        sender,
+        receiver,
+        amount,
+        channel,
+        timestamp: d.toISOString(),
+        device: devChoice === 'PRIMARY' ? senderAcc.primaryDevice : devChoice,
+        location: senderAcc.city,
+        reference: 'Custom Lab Simulation'
+      }], 'Custom Transaction Simulation');
+    }
+
+    function runPresetScenario(type) {
+      const now = Date.now();
+      const isoOffset = (minsAgo, overrideHour = null) => {
+        const d = new Date(now - minsAgo * 60000);
+        if (overrideHour !== null) d.setHours(overrideHour, 22, 0, 0);
+        return d.toISOString();
+      };
+
+      if (type === 'normal') {
+        const s = appState.accounts[0];
+        injectTransactionsAndScore([{
+          sender: 'ACC-1001',
+          receiver: 'ACC-1005',
+          amount: 3200,
+          channel: 'UPI',
+          timestamp: isoOffset(1, 14),
+          device: s.primaryDevice,
+          location: s.city,
+          reference: 'Grocery & Retail UPI'
+        }], 'Normal Baseline Transaction');
+      } else if (type === 'high_value') {
+        injectTransactionsAndScore([{
+          sender: 'ACC-1008',
+          receiver: 'ACC-1037',
+          amount: 340000,
+          channel: 'IMPS',
+          timestamp: isoOffset(2, 2),
+          device: 'Unknown-Proxy-Client',
+          location: 'Unusual Geo-IP',
+          reference: 'Nocturnal High-Value Wire'
+        }], 'Unusual High-Value Nocturnal Transfer');
+      } else if (type === 'velocity') {
+        const targets = ['ACC-1014', 'ACC-1015', 'ACC-1016', 'ACC-1017', 'ACC-1018'];
+        const batch = targets.map((t, idx) => ({
+          sender: 'ACC-1009',
+          receiver: t,
+          amount: 21000 + idx * 900,
+          channel: 'UPI',
+          timestamp: isoOffset(6 - idx),
+          device: 'Android-Spoof-V2',
+          location: 'Bengaluru',
+          reference: `Velocity Burst #${idx + 1}`
+        }));
+        injectTransactionsAndScore(batch, 'Transaction Velocity Burst (5 Txs / 6m)');
+      } else if (type === 'structuring') {
+        const amounts = [49100, 48700, 49400];
+        const batch = amounts.map((amt, idx) => ({
+          sender: 'ACC-1020',
+          receiver: 'ACC-1045',
+          amount: amt,
+          channel: idx % 2 === 0 ? 'IMPS' : 'NEFT',
+          timestamp: isoOffset(25 - idx * 8),
+          device: 'Web-ChromeWin',
+          location: 'Mumbai',
+          reference: `Sub-50k Structured Split #${idx + 1}`
+        }));
+        injectTransactionsAndScore(batch, 'Transaction Structuring / Smurfing (<₹50k)');
+      } else if (type === 'mule') {
+        const sources = ['ACC-1003', 'ACC-1006', 'ACC-1011', 'ACC-1013'];
+        const batch = sources.map((src, idx) => ({
+          sender: src,
+          receiver: 'ACC-1035',
+          amount: 38000,
+          channel: 'UPI',
+          timestamp: isoOffset(18 - idx * 2),
+          device: 'Android-RedmiNote',
+          location: 'Pune',
+          reference: 'Mule Funnel Credit'
+        }));
+        batch.push({
+          sender: 'ACC-1035',
+          receiver: 'ACC-1044',
+          amount: 141000,
+          channel: 'IMPS',
+          timestamp: isoOffset(3),
+          device: 'Unknown-Burner-Device',
+          location: 'Pune',
+          reference: 'Rapid Mule Pass-Through Sweep'
+        });
+        injectTransactionsAndScore(batch, 'Money Mule Fan-In & Rapid Pass-Through');
+      } else if (type === 'circular') {
+        const batch = [
+          { sender: 'ACC-1027', receiver: 'ACC-1028', amount: 145000, channel: 'NEFT', timestamp: isoOffset(20), device: 'Web-ChromeWin', location: 'Hyderabad', reference: 'Cycle Leg 1' },
+          { sender: 'ACC-1028', receiver: 'ACC-1029', amount: 143200, channel: 'IMPS', timestamp: isoOffset(12), device: 'iOS-iPhone15', location: 'Hyderabad', reference: 'Cycle Leg 2' },
+          { sender: 'ACC-1029', receiver: 'ACC-1027', amount: 141800, channel: 'IMPS', timestamp: isoOffset(4), device: 'Android-SamsungS24', location: 'Hyderabad', reference: 'Cycle Leg 3 (Return)' }
+        ];
+        injectTransactionsAndScore(batch, 'Circular Fund Transfer Ring (A → B → C → A)');
+      }
+    }
+
+    /* ---------------- MODULE 7: METHODOLOGY & RESPONSIBLE AI ---------------- */
+    function renderMethodologyModule() {
+      const weights = appState.modelWeights || [];
+      return `
+        <div class="space-y-6 max-w-5xl">
+          <div>
+            <h1 class="text-xl font-bold text-white">Detection Architecture, Methodology & Responsible AI</h1>
+            <p class="text-xs text-gray-400 mt-0.5">Transparent technical documentation of FinGuard AI's hybrid detection pipeline</p>
+          </div>
+
+          <!-- Architecture Pipeline Diagram -->
+          <div class="p-5 rounded-xl bg-slatecard border border-gray-800 space-y-4">
+            <h2 class="text-sm font-bold text-cyan-400">1. Hybrid Multi-Engine System Architecture</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
+              <div class="p-3.5 rounded-lg bg-gray-900 border border-gray-800">
+                <div class="font-mono text-[10px] text-gray-400">STAGE 01</div>
+                <div class="font-bold text-white mt-0.5">Synthetic Telemetry & State</div>
+                <p class="text-gray-400 mt-1">45 synthetic Indian accounts & INR transfers across UPI, IMPS, NEFT & WALLET persisted in <code class="text-cyan-300">localStorage</code>.</p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-gray-900 border border-cyan-500/30">
+                <div class="font-mono text-[10px] text-cyan-400">STAGE 02A • ML</div>
+                <div class="font-bold text-white mt-0.5">Logistic Regression</div>
+                <p class="text-gray-400 mt-1">Client-side binary classifier trained via gradient descent outputting calibrated Fraud Probability (0–100%).</p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-gray-900 border border-amber-500/30">
+                <div class="font-mono text-[10px] text-amber-400">STAGE 02B • STATS</div>
+                <div class="font-bold text-white mt-0.5">Behavioral Z-Score Engine</div>
+                <p class="text-gray-400 mt-1">Measures per-account amount standard deviations (σ), 1h velocity bursts, nocturnal hours, and device drift.</p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-gray-900 border border-rose-500/30">
+                <div class="font-mono text-[10px] text-rose-400">STAGE 02C • GRAPH</div>
+                <div class="font-bold text-white mt-0.5">Graph & Typology AML</div>
+                <p class="text-gray-400 mt-1">Directed graph traversal detecting 3/4-hop circular rings, &lt;₹50,000 smurfing, and mule fan-in/pass-through hubs.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Trained Logistic Regression Weights -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-5 rounded-xl bg-slatecard border border-gray-800 space-y-3">
+              <h2 class="text-sm font-bold text-white">2. Machine Learning Model (Logistic Regression)</h2>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                FinGuard AI trains a lightweight client-side Logistic Regression model <code class="text-cyan-300 font-mono">P(y=1|x) = σ(wᵀx + b)</code> on 240 labeled synthetic feature vectors at startup. Unlike opaque black-box scoring, each learned weight directly inspects normalized behavioral features:
+              </p>
+              <div class="space-y-1.5 pt-1">
+                ${weights.map(w => `
+                  <div class="flex items-center justify-between text-xs bg-gray-900/80 px-3 py-1.5 rounded border border-gray-800">
+                    <span class="text-gray-300">${w.name}</span>
+                    <span class="font-mono font-semibold ${w.weight >= 0 ? 'text-cyan-400' : 'text-gray-400'}">${w.weight >= 0 ? '+' : ''}${w.weight}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="p-5 rounded-xl bg-slatecard border border-gray-800 space-y-3">
+              <h2 class="text-sm font-bold text-white">3. Statistical Anomaly & Graph AML Rules</h2>
+              <ul class="space-y-2.5 text-xs text-gray-300 leading-relaxed">
+                <li><strong class="text-amber-400">Statistical Baseline Deviation:</strong> Computes <code class="font-mono text-gray-200">z = (Amount - μ_account) / σ_account</code> alongside rolling 60-minute velocity counts, nocturnal timing (00:00–04:59 IST), and device fingerprint changes.</li>
+                <li><strong class="text-rose-400">Circular Fund Transfers:</strong> Traverses the directed account adjacency graph to detect closed 3-node (<code class="font-mono">A→B→C→A</code>) and 4-node (<code class="font-mono">A→B→C→D→A</code>) layering cycles.</li>
+                <li><strong class="text-rose-400">Transaction Structuring (Smurfing):</strong> Flags ≥3 outbound transfers sized between ₹40,000 and ₹49,999 within 6 hours designed to evade ₹50,000 threshold reporting.</li>
+                <li><strong class="text-rose-400">Money Mule Hubs:</strong> Identifies accounts aggregating funds from ≥4 distinct senders followed by ≥65% rapid outbound pass-through within 2 hours.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Unified Scoring & Responsible AI Governance -->
+          <div class="p-5 rounded-xl bg-slatecard border border-gray-800 space-y-3">
+            <h2 class="text-sm font-bold text-white">4. Unified Risk Scoring, Limitations & Responsible AI Practices</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-300 leading-relaxed">
+              <div class="p-3.5 rounded-lg bg-gray-900/70 border border-gray-800 space-y-1.5">
+                <div class="font-semibold text-cyan-300">Composite Risk Formulation (0–100)</div>
+                <p>
+                  Unified Risk combines ML Probability (35%), Statistical Anomaly Score (35%), and Graph AML Typology Score (30%), elevated by peak-signal thresholding so severe single-modality threats (such as confirmed circular rings) are never diluted by low baseline scores.
+                </p>
+              </div>
+              <div class="p-3.5 rounded-lg bg-gray-900/70 border border-gray-800 space-y-1.5">
+                <div class="font-semibold text-amber-300">Human-in-the-Loop & Non-Accusatory Governance</div>
+                <p>
+                  All data is 100% synthetic for competition demonstration. FinGuard AI distinguishes clearly between probabilistic ML predictions, statistical outliers, and deterministic graph rules. Flagged indicators represent suspicious risk signals for qualified compliance analyst investigation—not proof of criminal intent. No fabricated precision/recall benchmarks are claimed.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /*************************************************************************
+     * 8. APPLICATION BOOTSTRAP
+     *************************************************************************/
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      renderSidebar();
+      renderMainModule();
+    });
+  </script>
+</body>
+</html>
